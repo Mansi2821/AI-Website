@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import handshake from "../assets/handshake.png"; // robot-hand image
 import workspace from "../assets/workspace.png"; // desk/laptop image

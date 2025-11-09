@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaQuoteLeft } from "react-icons/fa";
 import avatar from "../assets/avatar.png"; // Replace with your client image

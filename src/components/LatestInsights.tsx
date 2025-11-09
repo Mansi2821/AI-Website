@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { motion } from "framer-motion";
 
 import img1 from "../assets/blog1.png"; // Replace with your images
