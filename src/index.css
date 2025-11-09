@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+
+body {
+  @apply bg-black text-white font-sans antialiased;
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 20px rgba(103,100,248,0.3); }
+  50% { box-shadow: 0 0 40px rgba(103,100,248,0.6); }
+}
+.animate-pulse {
+  animation: pulse-ring 3s infinite ease-in-out;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
