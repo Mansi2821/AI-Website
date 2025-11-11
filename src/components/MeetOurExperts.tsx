@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-// Replace these with your own expert images
 import expert1 from "../assets/expert1.png";
 import expert2 from "../assets/expert2.png";
 import expert3 from "../assets/expert3.png";
@@ -63,8 +62,11 @@ export default function MeetOurExperts() {
           </p>
         </motion.div>
 
-        {/* Experts Grid */}
-        <div className="flex justify-center items-stretch gap-4 flex-wrap md:flex-nowrap">
+        {/* Experts Container */}
+        <div
+          className="flex md:flex-nowrap flex-row md:gap-4 gap-6 
+          overflow-x-auto md:overflow-x-visible scrollbar-hide scroll-smooth snap-x snap-mandatory"
+        >
           {experts.map((expert, i) => {
             const isActive = activeIndex === i;
 
@@ -76,30 +78,36 @@ export default function MeetOurExperts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative cursor-pointer rounded-2xl overflow-hidden transition-all duration-700 ease-in-out flex flex-col justify-end ${
-                  isActive
-                    ? "shadow-[0_0_40px_rgba(103,100,248,0.5)] border-2 border-brand"
-                    : "border border-transparent opacity-80 hover:opacity-100"
-                }`}
                 animate={{
-                  flex: isActive ? 1.3 : 1,
+                  flex: isActive ? 1.2 : 1,
                   scale: isActive ? 1.02 : 1,
                 }}
+                whileHover={{
+                  scale: isActive ? 1.02 : 1.04,
+                }}
+                className={`relative cursor-pointer rounded-2xl overflow-hidden flex flex-col justify-end 
+                  transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]
+                  snap-center min-w-[80%] sm:min-w-[45%] md:min-w-0
+                  ${
+                    isActive
+                      ? "shadow-[0_0_40px_rgba(162,135,255,0.6)] border-2 border-[#A287FF]"
+                      : "border border-transparent opacity-85 hover:opacity-100"
+                  }`}
               >
-                {/* Image */}
+                {/* Expert Image */}
                 <motion.img
                   src={expert.img}
                   alt={expert.name}
-                  className={`w-full h-[450px] object-cover transition-all duration-700 ${
+                  className={`w-full h-[400px] md:h-[450px] object-cover transition-all duration-700 ${
                     isActive ? "brightness-100" : "brightness-75"
                   }`}
                 />
 
-                {/* Overlay Content */}
+                {/* Overlay Gradient + Text */}
                 <motion.div
-                  className={`absolute inset-0 flex flex-col justify-end p-6 transition-all duration-700 ${
+                  className={`absolute inset-0 flex flex-col justify-end p-5 sm:p-6 transition-all duration-700 ${
                     isActive
-                      ? "bg-gradient-to-t from-[#6764F8]/90 via-[#27266C]/70 to-transparent"
+                      ? "bg-gradient-to-t from-[#A287FF]/90 via-[#27266C]/70 to-transparent"
                       : "bg-gradient-to-t from-black/70 via-transparent to-transparent"
                   }`}
                 >
@@ -109,7 +117,7 @@ export default function MeetOurExperts() {
                       opacity: isActive ? 1 : 0.9,
                       y: isActive ? 0 : 20,
                     }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                   >
                     <h3
                       className={`text-lg font-semibold ${
@@ -120,7 +128,7 @@ export default function MeetOurExperts() {
                     </h3>
                     <p
                       className={`text-sm font-medium ${
-                        isActive ? "text-brand-80" : "text-white/70"
+                        isActive ? "text-[#A287FF]" : "text-white/70"
                       }`}
                     >
                       {expert.role}

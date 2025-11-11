@@ -1,12 +1,9 @@
-// import React from "react";
 import { motion } from "framer-motion";
 
-import img1 from "../assets/blog1.png"; // Replace with your images
+import img1 from "../assets/blog1.png";
 import img2 from "../assets/blog2.png";
 import img3 from "../assets/blog3.png";
 import img4 from "../assets/blog4.png";
-// import img5 from "../assets/blog5.png";
-// import img6 from "../assets/blog6.png";
 
 export default function LatestInsights() {
   const insights = [
@@ -46,25 +43,25 @@ export default function LatestInsights() {
       img: img4,
     },
     {
-      title: "AWS Cost Optimization: 10 Strategies That Saved Our Clients $50K+",
-      tag: "Engineering",
+      title: "AI in Enterprise Systems: Transforming Workflows at Scale",
+      tag: "AI",
       author: "Eleanor Vance",
-      date: "January 15, 2024",
-      readTime: "8 min read",
+      date: "January 20, 2024",
+      readTime: "6 min read",
       img: img2,
     },
     {
-      title: "AWS Cost Optimization: 10 Strategies That Saved Our Clients $50K+",
-      tag: "Engineering",
+      title: "Securing Cloud Infrastructure: Lessons from 2024",
+      tag: "Security",
       author: "Eleanor Vance",
-      date: "January 15, 2024",
-      readTime: "8 min read",
+      date: "January 25, 2024",
+      readTime: "9 min read",
       img: img1,
     },
   ];
 
   return (
-    <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24">
+    <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -77,13 +74,13 @@ export default function LatestInsights() {
           <h2 className="text-3xl sm:text-4xl font-semibold mb-2">
             Latest Insights
           </h2>
-          <p className="text-white/70 text-sm sm:text-base">
+          <p className="text-white/70 text-sm sm:text-base max-w-2xl">
             Thought leadership, technical tutorials, and industry insights from
             our team.
           </p>
         </motion.div>
 
-        {/* Grid */}
+        {/* Insights Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {insights.map((item, i) => (
             <motion.div
@@ -92,26 +89,41 @@ export default function LatestInsights() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="group rounded-2xl overflow-hidden border border-brand/20 bg-gradient-to-b from-[#27266C]/50 to-[#1B1B2A]/80 hover:border-brand/50 hover:shadow-[0_0_25px_rgba(103,100,248,0.5)] transition-all duration-500 cursor-pointer"
+              whileHover={{
+                scale: 1.03,
+                boxShadow: "0 0 45px rgba(162,135,255,0.8)",
+              }}
+              className="group rounded-2xl overflow-hidden border border-[#3B3473]/50
+                bg-gradient-to-b from-[#4B3E9E] via-[#352A73] to-[#1A1635]
+                hover:border-[#A287FF]/60
+                shadow-[0_0_25px_rgba(162,135,255,0.25)]
+                hover:shadow-[0_0_50px_rgba(162,135,255,0.8)]
+                transition-all duration-500 cursor-pointer"
             >
-              {/* Card Content */}
               {!item.isTextOnly ? (
                 <>
+                  {/* Image Card */}
                   <div className="relative w-full h-44 overflow-hidden">
-                    <img
+                    <motion.img
                       src={item.img}
                       alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.7 }}
+                      className="w-full h-full object-cover"
                     />
                     {item.tag && (
-                      <span className="absolute top-3 left-3 text-xs font-semibold bg-black/70 text-white px-3 py-1 rounded-full border border-white/20">
+                      <span
+                        className="absolute top-3 left-3 text-xs font-semibold 
+                        bg-gradient-to-r from-[#5A5DFF] to-[#0A0A0F]
+                        text-white px-3 py-1 rounded-full border border-white/20 shadow-[0_0_10px_rgba(162,135,255,0.25)]"
+                      >
                         {item.tag}
                       </span>
                     )}
                   </div>
 
                   <div className="p-5">
-                    <h3 className="font-semibold text-base mb-2 leading-snug">
+                    <h3 className="font-semibold text-base mb-2 leading-snug group-hover:text-[#A287FF] transition-all duration-300">
                       {item.title}
                     </h3>
                     <div className="flex flex-wrap items-center gap-2 text-xs text-white/60">
@@ -128,9 +140,10 @@ export default function LatestInsights() {
                   </div>
                 </>
               ) : (
+                // Text-only Card
                 <div className="p-6 flex flex-col justify-between h-full">
                   <div>
-                    <h3 className="text-2xl font-semibold mb-3 leading-snug">
+                    <h3 className="text-2xl font-semibold mb-3 leading-snug group-hover:text-[#A287FF] transition-all duration-300">
                       {item.title}
                     </h3>
                     <p className="text-white/70 text-sm leading-relaxed">

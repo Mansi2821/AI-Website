@@ -1,4 +1,4 @@
-# 🌌 AI Website — Nebulae Somani
+# 🌌 AI Website — SWL Solutions
 
 A **modern, responsive AI-driven web design** built with **React, TypeScript, Tailwind CSS**, and **Framer Motion**.  
 This project visually represents an AI software company (SWL Solutions) and includes interactive sections, subtle animations, and clean modern UI — inspired by futuristic AI themes.

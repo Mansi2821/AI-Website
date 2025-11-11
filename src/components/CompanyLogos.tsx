@@ -1,122 +1,131 @@
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+
+// ✅ Local logo imports
+import logo1 from "../assets/utosia.png";
+import logo2 from "../assets/foxhub.png";
+import logo3 from "../assets/radial.png";
+import logo4 from "../assets/goldline.png";
+import logo5 from "../assets/amara.png";
+// import logo6 from "../assets/zenco.png";
 
 export default function CompanyLogos() {
-  const brands = [
-    "UTOSIA",
-    "FOX HUB",
-    "RADIYAL",
-    "GOLDLINE",
-    "AMARA",
-    "ZENCO",
+  const logos = [
+    { name: "Utosia", src: logo1 },
+    { name: "FoxHub", src: logo2 },
+    { name: "Radiyal", src: logo3 },
+    { name: "Goldline", src: logo4 },
+    { name: "Amara", src: logo5 },
+    { name: "Zenco", src: logo3 },
   ];
-
-  const duplicated = [...brands, ...brands];
-  const controls = useAnimation();
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    controls.start({
-      x: ["0%", "-50%"],
-      transition: {
-        repeat: Infinity,
-        duration: 60, // slow scroll
-        ease: "linear",
-      },
-    });
-  }, [controls]);
-
-  const handleMouseEnter = () => controls.stop();
-  const handleMouseLeave = () =>
-    controls.start({
-      x: ["0%", "-50%"],
-      transition: {
-        repeat: Infinity,
-        duration: 60,
-        ease: "linear",
-      },
-    });
 
   return (
     <section
-      className="relative overflow-hidden py-4 md:py-6" // reduced top padding
+      className="relative py-12 sm:py-16 lg:py-20 mx-4 sm:mx-8 md:mx-16 lg:mx-24 overflow-hidden rounded-2xl"
       style={{
         background:
-          "linear-gradient(90deg, #0C0E1E 0%, #0A0A14 35%, #000000 100%)",
+          "linear-gradient(90deg, #0C0E1E 0%, #0A0A14 40%, #000000 100%)",
       }}
     >
-      {/* Heading */}
-      <div className="text-center mb-8 md:mb-10"> {/* more space below heading */}
+      {/* ===================== Heading ===================== */}
+      <div className="text-center mb-10 md:mb-14 px-4">
         <motion.p
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-white/80 text-lg sm:text-xl md:text-3xl font-semibold"
+          className="text-white/80 text-base sm:text-lg md:text-2xl lg:text-3xl font-semibold leading-snug"
         >
           Trusted by{" "}
           <span className="text-white font-bold">
-            67+ startups and agencies
+            67+ startups and global agencies
           </span>
         </motion.p>
       </div>
 
-      {/* Auto-scroll logo list */}
+      {/* ===================== Logo List ===================== */}
       <div
-        ref={containerRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="overflow-hidden w-full"
+        className="relative flex items-center justify-start gap-8 sm:gap-12 md:gap-16 lg:gap-20 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-hide"
+        style={{
+          scrollSnapType: "x mandatory",
+          WebkitOverflowScrolling: "touch",
+        }}
       >
-        <motion.div
-          animate={controls}
-          className="flex items-center gap-10 sm:gap-16 px-6"
-        >
-          {duplicated.map((name, idx) => (
+        {logos.map((logo, idx) => (
+          <motion.div
+            key={idx}
+            className="relative flex items-center justify-center flex-shrink-0 scroll-smooth"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: idx * 0.1,
+              ease: "easeOut",
+            }}
+            viewport={{ once: true }}
+            style={{ scrollSnapAlign: "center" }}
+          >
+            {/* Glow Circle Behind Logo */}
             <motion.div
-              key={`${name}-${idx}`}
-              className="flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: idx * 0.03 }}
-              viewport={{ once: true }}
-            >
-              {/* Text logo badge */}
-              <div
-                className="px-6 py-3 rounded-md text-white/90 font-semibold tracking-wide text-lg sm:text-xl"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  minWidth: 140,
-                  textAlign: "center",
-                  letterSpacing: "1px",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background =
-                    "rgba(255,255,255,0.1)";
-                  (e.currentTarget as HTMLDivElement).style.transform =
-                    "scale(1.08)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background =
-                    "rgba(255,255,255,0.05)";
-                  (e.currentTarget as HTMLDivElement).style.transform =
-                    "scale(1)";
-                }}
-              >
-                {name}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              className="absolute rounded-full blur-2xl"
+              style={{
+                background: "rgba(103,100,248,0.25)",
+                width: "70px",
+                height: "70px",
+              }}
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 3.5,
+                ease: "easeInOut",
+                delay: idx * 0.3,
+              }}
+            />
+
+            {/* Logo Image */}
+            <motion.img
+              src={logo.src}
+              alt={logo.name}
+              className="relative z-10 h-6 xs:h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain opacity-90 hover:opacity-100 transition-all duration-300"
+              whileHover={{
+                scale: 1.12,
+                y: -4,
+                filter: "brightness(1.2)",
+              }}
+              whileTap={{
+                scale: 0.98,
+                filter: "brightness(1.1)",
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 18,
+              }}
+            />
+          </motion.div>
+        ))}
+
+        {/* ✨ Shimmer Sweep (Desktop only) */}
+        <motion.div
+          className="absolute top-0 left-[-40%] w-[40%] h-full z-20 pointer-events-none hidden md:block"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(103,100,248,0.25) 50%, rgba(255,255,255,0) 100%)",
+          }}
+          animate={{ x: ["-40%", "140%"] }}
+          transition={{
+            repeat: Infinity,
+            duration: 6,
+            ease: "linear",
+          }}
+        />
       </div>
 
-      {/* Gradient edge fades */}
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0C0E1E] to-transparent pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#000000] to-transparent pointer-events-none" />
+      {/* ===================== Edge Fades ===================== */}
+      <div className="absolute inset-y-0 left-0 w-16 sm:w-20 bg-gradient-to-r from-[#0C0E1E] to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-16 sm:w-20 bg-gradient-to-l from-[#000000] to-transparent pointer-events-none" />
     </section>
   );
 }
-
-
-

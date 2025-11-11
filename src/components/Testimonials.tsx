@@ -51,23 +51,30 @@ export default function Testimonials() {
     const container = scrollRef.current;
     if (!container) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute("data-index"));
-          if (entry.isIntersecting) setActiveIndex(index);
-        });
-      },
-      {
-        root: container,
-        threshold: 0.6, // Card must be 60% visible to count as active
-      }
-    );
+    const handleScroll = () => {
+      const containerRect = container.getBoundingClientRect();
+      const centerX = containerRect.left + containerRect.width / 2;
 
-    const cards = container.querySelectorAll(".testimonial-card");
-    cards.forEach((card) => observer.observe(card));
+      let closestIndex = 0;
+      let closestDistance = Infinity;
 
-    return () => observer.disconnect();
+      const cards = container.querySelectorAll(".testimonial-card");
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(centerX - cardCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setActiveIndex(closestIndex);
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run once
+    return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Scroll to a card when clicking a dot
@@ -86,6 +93,7 @@ export default function Testimonials() {
   return (
     <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 text-center">
+        {/* Header */}
         <h2 className="text-3xl sm:text-4xl font-semibold mb-2">
           What Our Clients Say
         </h2>
@@ -97,7 +105,10 @@ export default function Testimonials() {
         {/* Scrollable List */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth justify-start"
+          className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth justify-start px-2 sm:px-0"
+          style={{
+            height: "430px", // ✅ Fixed height for consistent layout
+          }}
         >
           {testimonials.map((t, i) => {
             const isActive = i === activeIndex;
@@ -105,22 +116,27 @@ export default function Testimonials() {
               <motion.div
                 key={i}
                 data-index={i}
-                className={`testimonial-card flex-shrink-0 w-[300px] sm:w-[400px] lg:w-[480px] mx-4 snap-center rounded-2xl border border-brand/20 bg-gradient-to-b from-[#27266C]/60 to-[#1B1B2A]/80 shadow-lg transition-all duration-700 ${
-                  isActive
-                    ? "scale-105 border-brand/50 shadow-[0_0_35px_rgba(103,100,248,0.5)] z-20"
-                    : "opacity-50 scale-90 blur-[1px]"
-                }`}
-                initial={{ opacity: 0, y: 50 }}
+                className={`testimonial-card flex-shrink-0 w-[300px] sm:w-[380px] lg:w-[440px] mx-4 snap-center rounded-2xl border transition-all duration-700 flex flex-col justify-center
+                  ${
+                    isActive
+                      ? "scale-105 border-[#A287FF] shadow-[0_0_40px_rgba(162,135,255,0.6)] z-20"
+                      : "scale-90 opacity-60 border-[#3B3473] blur-[1px]"
+                  }`}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(58,46,116,0.9) 0%, rgba(28,24,56,0.95) 100%)",
+                }}
               >
                 <div className="p-8 flex flex-col items-center text-center">
-                  <FaQuoteLeft className="text-brand text-3xl mb-4" />
+                  <FaQuoteLeft className="text-[#A287FF] text-3xl mb-4" />
                   <p className="text-white/80 text-sm sm:text-base mb-6 leading-relaxed">
                     {t.text}
                   </p>
-                  <div className="w-16 h-16 rounded-full border-2 border-brand overflow-hidden mb-3">
+                  <div className="w-16 h-16 rounded-full border-2 border-[#A287FF] overflow-hidden mb-3 shadow-[0_0_20px_rgba(162,135,255,0.5)]">
                     <img
                       src={t.image}
                       alt={t.name}
@@ -135,14 +151,16 @@ export default function Testimonials() {
           })}
         </div>
 
-        {/* Dots */}
-        <div className="flex justify-center gap-2 mt-8">
+        {/* Dots Navigation */}
+        <div className="flex justify-center gap-2 mt-10">
           {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => scrollToCard(i)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                activeIndex === i ? "bg-brand scale-125" : "bg-white/30"
+                activeIndex === i
+                  ? "bg-[#A287FF] scale-125 shadow-[0_0_12px_rgba(162,135,255,0.7)]"
+                  : "bg-white/30 hover:bg-white/50"
               }`}
             ></button>
           ))}

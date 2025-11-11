@@ -33,74 +33,95 @@ export default function FAQ() {
   };
 
   return (
-    <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24">
+    <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24 overflow-hidden">
       <div className="max-w-5xl mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-left mb-10"
+          className="text-left mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-semibold mb-2">
             Frequently Asked Questions
           </h2>
-          <p className="text-white/70 text-sm sm:text-base">
+          <p className="text-white/70 text-sm sm:text-base max-w-2xl">
             Got questions? We’ve got answers. Here are the most common questions
             we receive from our clients.
           </p>
         </motion.div>
 
         {/* FAQ List */}
-        <div className="space-y-4">
-          {faqs.map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className={`border border-brand/20 rounded-xl overflow-hidden bg-gradient-to-b from-[#27266C]/50 to-[#1B1B2A]/80 transition-all duration-500 ${
-                activeIndex === i
-                  ? "shadow-[0_0_20px_rgba(103,100,248,0.5)] border-brand/40"
-                  : "hover:border-brand/30"
-              }`}
-            >
-              <button
-                onClick={() => toggleFAQ(i)}
-                className="w-full flex justify-between items-center px-6 py-5 text-left focus:outline-none"
-              >
-                <span
-                  className={`font-medium text-sm sm:text-base transition-colors ${
-                    activeIndex === i ? "text-white" : "text-white/80"
-                  }`}
-                >
-                  {faq.question}
-                </span>
-                <span className="text-brand text-xl">
-                  {activeIndex === i ? <FiMinus /> : <FiPlus />}
-                </span>
-              </button>
+        <div className="space-y-5">
+          {faqs.map((faq, i) => {
+            const isActive = activeIndex === i;
 
-              <AnimatePresence initial={false}>
-                {activeIndex === i && (
-                  <motion.div
-                    key="content"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="px-6 pb-5"
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                viewport={{ once: true }}
+                className={`rounded-xl overflow-hidden border 
+                  bg-gradient-to-b from-[#3A2E74]/40 via-[#2C2560]/50 to-[#181632]/60 
+                  transition-all duration-500 ease-in-out
+                  ${
+                    isActive
+                      ? "border-[#A287FF]/60 shadow-[0_0_25px_rgba(162,135,255,0.6)]"
+                      : "border-[#3B3473]/40 hover:border-[#A287FF]/40 hover:shadow-[0_0_15px_rgba(162,135,255,0.3)]"
+                  }`}
+              >
+                {/* Question Row */}
+                <button
+                  onClick={() => toggleFAQ(i)}
+                  className="w-full flex justify-between items-center px-6 py-5 text-left focus:outline-none transition-all"
+                >
+                  <span
+                    className={`font-medium text-sm sm:text-base transition-colors ${
+                      isActive ? "text-white" : "text-white/80 group-hover:text-white"
+                    }`}
                   >
-                    <p className="text-sm text-white/70 leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+                    {faq.question}
+                  </span>
+                  <motion.span
+                    className="text-[#A287FF] text-xl flex-shrink-0"
+                    animate={{ rotate: isActive ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {isActive ? <FiMinus /> : <FiPlus />}
+                  </motion.span>
+                </button>
+
+                {/* Animated Answer */}
+                <AnimatePresence initial={false}>
+                  {isActive && (
+                    <motion.div
+                      key="answer"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{
+                        duration: 0.5,
+                        ease: [0.25, 0.1, 0.25, 1],
+                      }}
+                      className="px-6 pb-5"
+                    >
+                      <motion.p
+                        initial={{ y: 10 }}
+                        animate={{ y: 0 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="text-sm text-white/75 leading-relaxed"
+                      >
+                        {faq.answer}
+                      </motion.p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
