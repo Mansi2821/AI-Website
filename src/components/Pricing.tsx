@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
-import { FaCheckCircle } from "react-icons/fa";
+import checkIcon from "../assets/check-tick.png";
 
 export default function Pricing() {
+  const brand = "#6764F8";
+
   const plans = [
     {
       name: "Starter",
@@ -73,14 +75,23 @@ export default function Pricing() {
   ];
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-[#09091A] via-[#0E0D23] to-[#17153A] text-white py-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center">
-        {/* Section Header */}
+    <section className="relative w-full bg-gradient-to-r from-[#09091A] via-[#0E0D23] to-[#17153A] text-white py-12 overflow-hidden">
+     
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-left">
+        {/* ======================= HEADER ======================= */}
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl font-bold mb-3"
+          style={{
+            fontFamily: "Montserrat",
+            fontWeight: 600,
+            fontSize: "28px",
+            lineHeight: "40px",
+            letterSpacing: "0%",
+          }}
+          className="mb-3"
         >
           Choose Your Package
         </motion.h2>
@@ -89,96 +100,122 @@ export default function Pricing() {
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-white/70 mb-16 text-sm sm:text-base max-w-2xl mx-auto"
+          style={{
+            fontFamily: "Inter",
+            fontWeight: 400,
+            fontSize: "16px",
+            lineHeight: "22px",
+            letterSpacing: "0%",
+            color: "#D3D3D3",
+          }}
+          className="max-w-2xl mb-14"
         >
           Transparent pricing with no hidden fees. All packages include our
           commitment to quality and your success.
         </motion.p>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* ======================= PRICING CARDS ======================= */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-items-center">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
               viewport={{ once: true }}
-              className="relative rounded-2xl p-8 flex flex-col justify-between 
-                bg-gradient-to-b from-[#3A2E74] via-[#2C2560] to-[#181632] 
-                border border-[#3B3473] shadow-[0_0_20px_rgba(162,135,255,0.15)] 
-                transition-all duration-500 hover:scale-105 
-                hover:shadow-[0_0_50px_rgba(162,135,255,0.7)] 
-                hover:border-[#A287FF] 
-                hover:bg-gradient-to-b hover:from-[#5A4AE8] hover:via-[#4B3BD2] hover:to-[#241F60] 
-                group"
+              className="relative flex flex-col justify-between p-8"
+              style={{
+                width: "386px",
+                height: "800px",
+                borderRadius: "16px",
+                background:
+                  "linear-gradient(161.17deg, rgba(103,100,248,0.4) 1.78%, #000000 100%)",
+                border: "1px solid rgba(103,100,248,0.25)",
+                transition: "all 0.4s ease",
+              }}
+              whileHover={{
+                scale: 1.03,
+                borderWidth: "1.5px",
+                borderColor: brand,
+                boxShadow: "0px 4px 40px #6764F8",
+                background:
+                  "linear-gradient(161.17deg, #6764F8 1.78%, #000000 100%)",
+              }}
             >
-              {/* Card Content */}
-              <div>
-                <div className="text-left mb-5">
-                  <h3 className="text-xl font-semibold text-white mb-1">
-                    {plan.name}
-                  </h3>
-                  <p className="text-white/70 text-sm mb-6">{plan.subtitle}</p>
+              {/* CONTENT BLOCK */}
+              <div className="text-left">
+                <h3 className="text-xl font-semibold text-white mb-1">
+                  {plan.name}
+                </h3>
+                <p className="text-white/70 text-sm mb-6">{plan.subtitle}</p>
 
-                  <div className="text-3xl font-bold text-white mb-1">
-                    {plan.price}
-                    <span className="text-white/70 text-sm font-normal ml-1">
-                      one-time
+                <div className="text-3xl font-bold text-white mb-1">
+                  {plan.price}
+                  <span className="text-white/70 text-sm font-normal ml-1">
+                    one-time
+                  </span>
+                </div>
+
+                <p className="text-sm text-white/80 mb-1">
+                  <strong>Timeline:</strong> {plan.timeline}
+                </p>
+
+                <p className="text-sm text-white/80 mb-6">
+                  <strong>Revisions:</strong> {plan.revisions}
+                </p>
+
+                {/* SERVICES */}
+                <p className="font-semibold mb-2 text-sm">Services Included:</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {plan.services.map((service, idx) => (
+                    <span
+                      key={idx}
+                      style={{
+                        background:
+                          "linear-gradient(90deg, rgba(103,100,248,0.3) 0%, rgba(103,100,248,0) 100%)",
+                        border: "1px solid #6764F866",
+                        padding: "6px 12px",
+                        borderRadius: "90px",
+                      }}
+                      className="text-xs text-white/90"
+                    >
+                      {service}
                     </span>
-                  </div>
-
-                  <p className="text-sm text-white/80 mb-1">
-                    <strong>Timeline:</strong> {plan.timeline}
-                  </p>
-                  <p className="text-sm text-white/80 mb-5">
-                    <strong>Revisions:</strong> {plan.revisions}
-                  </p>
+                  ))}
                 </div>
 
-                {/* Services */}
-                <div className="mb-5">
-                  <p className="font-semibold mb-2 text-sm">Services Included:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {plan.services.map((service, idx) => (
-                      <span
-                        key={idx}
-                        className="text-xs px-3 py-1 rounded-md bg-black/30 border border-white/10 group-hover:border-[#C2A5FF80] text-white/90 transition-all"
-                      >
-                        {service}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                {/* FEATURES */}
+                <p className="font-semibold mb-2 text-sm">Features:</p>
 
-                {/* Features */}
-                <div className="mb-8">
-                  <p className="font-semibold mb-2 text-sm">Features:</p>
-                  <ul className="space-y-2">
-                    {plan.features.map((feature, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-start gap-2 text-sm text-white/80"
-                      >
-                        <FaCheckCircle
-                          className="text-[#A287FF] text-xs mt-[3px] flex-shrink-0"
-                          size={12}
-                        />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="space-y-3">
+                  {plan.features.map((feature, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-start gap-3 text-sm text-white/80"
+                    >
+                      <img
+                        src={checkIcon}
+                        className="w-4 h-4 mt-1 flex-shrink-0"
+                      />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              {/* Bottom Section - Button + Support */}
+              {/* ========== BUTTON FIXED ABOVE SUPPORT ========== */}
               <div className="mt-auto">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
-                  className="w-full py-3 rounded-md bg-[#A287FF] text-white font-semibold text-sm 
-                    hover:shadow-[0_0_30px_rgba(162,135,255,0.8)] hover:bg-[#BCA6FF] 
-                    transition-all duration-300"
+                  style={{
+                    width: "320px",
+                    height: "44px",
+                    padding: "14px 24px",
+                    borderRadius: "8px",
+                    background: "#6764F8",
+                  }}
+                  className="text-white font-semibold text-sm mx-auto block"
                 >
                   Get Started
                 </motion.button>
@@ -194,3 +231,7 @@ export default function Pricing() {
     </section>
   );
 }
+
+
+
+
