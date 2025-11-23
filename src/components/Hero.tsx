@@ -18,15 +18,29 @@ export default function Hero() {
       className="relative overflow-hidden pt-[160px]"
       style={{
         background:
-          "bg-gradient-to-r from-[#0A0A0F] to-[#151527]",
+          "linear-gradient(90deg, #0b0d17ff 0%, #121232ff 5%, rgba(0,0,0,1) 100%)",
       }}
     >
-      <div className="w-[1240px] mx-auto px-4 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+      {/* WRAPPER — Desktop fixed width, Mobile full width */}
+      <div className="
+        w-[1240px] mx-auto px-4 
+        grid grid-cols-1 md:grid-cols-2 
+        items-center gap-12
+        lg:w-[1240px]
+        md:w-[90%]
+        sm:w-full sm:px-6
+      ">
 
-        {/* LEFT SECTION */}
-        <div className="flex flex-col justify-center items-start">
-
-          
+        {/* ------------------------------------------------------------------
+            LEFT SECTION (TEXT)
+        ------------------------------------------------------------------ */}
+        <div
+          className="
+            flex flex-col justify-center items-start
+            sm:items-center sm:text-center sm:w-full
+          "
+        >
+          {/* MAIN HEADING */}
           <motion.h1
             variants={textVariants}
             initial="hidden"
@@ -34,13 +48,15 @@ export default function Hero() {
             custom={0.1}
             style={{
               fontFamily: "Montserrat",
-              fontWeight: 800,     
+              fontWeight: 800,
               fontSize: "44px",
               lineHeight: "52px",
-              letterSpacing: "0",
               width: "544px",
             }}
-            className="text-white mb-6"
+            className="
+              text-white mb-6
+              sm:text-[32px] sm:leading-[40px] sm:w-full
+            "
           >
             Shaping the Future <br />
             with{" "}
@@ -51,7 +67,7 @@ export default function Hero() {
             Innovation
           </motion.h1>
 
-          {/* PARAGRAPH TEXT — EXACT GREY + EXACT FONT */}
+          {/* PARAGRAPH */}
           <motion.p
             variants={textVariants}
             initial="hidden"
@@ -62,11 +78,13 @@ export default function Hero() {
               fontWeight: 400,
               fontSize: "20px",
               lineHeight: "28px",
-              letterSpacing: "0",
               color: "#D3D3D3",
               width: "544px",
             }}
-            className="mb-8"
+            className="
+              mb-8
+              sm:w-full sm:text-center sm:text-[16px] sm:leading-[24px]
+            "
           >
             SWL Solutions is your dedicated partner in crafting bespoke software
             solutions that drive growth, efficiency, and innovation. From
@@ -79,9 +97,12 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             custom={0.5}
-            className="flex flex-col sm:flex-row gap-[10px]"
+            className="
+              flex flex-col sm:flex-col sm:items-center sm:w-full sm:gap-4
+              gap-[10px]
+            "
           >
-            {/* OUR SERVICES BUTTON (BLUE BORDER) */}
+            {/* OUR SERVICES */}
             <motion.button
               whileHover={{
                 backgroundColor: "rgba(255,255,255,0.05)",
@@ -98,12 +119,12 @@ export default function Hero() {
                 fontWeight: 500,
                 fontSize: "16px",
               }}
-              className="text-white bg-transparent"
+              className="text-white bg-transparent sm:mx-auto"
             >
               Our Services
             </motion.button>
 
-            {/* CONTACT US BUTTON */}
+            {/* CONTACT US */}
             <motion.button
               whileHover={{
                 scale: 1.05,
@@ -121,18 +142,24 @@ export default function Hero() {
                 fontSize: "16px",
                 color: "#fff",
               }}
+              className="sm:mx-auto"
             >
               Contact Us
             </motion.button>
           </motion.div>
         </div>
 
-        {/* RIGHT SECTION — BRAIN IMAGE */}
+        {/* ------------------------------------------------------------------
+            RIGHT SECTION — IMAGE
+        ------------------------------------------------------------------ */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="relative flex justify-center md:justify-end"
+          className="
+            relative flex justify-center md:justify-end
+            sm:justify-center sm:mt-6
+          "
         >
           <img
             src={heroImage}
@@ -141,7 +168,11 @@ export default function Hero() {
               width: "496px",
               height: "512px",
             }}
-            className="object-contain drop-shadow-[0_0_40px_rgba(103,100,248,0.3)]"
+            className="
+              object-contain 
+              drop-shadow-[0_0_40px_rgba(103,100,248,0.3)]
+              sm:w-[80%] sm:h-auto
+            "
           />
         </motion.div>
       </div>
@@ -151,3 +182,14 @@ export default function Hero() {
     </section>
   );
 }
+
+
+
+
+
+
+
+
+
+
+

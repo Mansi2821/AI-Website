@@ -6,37 +6,37 @@ import commaIcon from "../assets/comma.png";
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Sarah Johnson",
+      name: "SARAH JOHNSON",
       title: "CEO of TechStartup Inc",
       text: "Lorem ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting.",
       image: avatar,
     },
     {
-      name: "Michael Smith",
+      name: "MICHAEL SMITH",
       title: "CTO of InnovateX",
       text: "Their team delivered exceptional results. The professionalism, communication, and high-quality code exceeded our expectations.",
       image: avatar,
     },
     {
-      name: "Priya Sharma",
+      name: "PRIYA SHARMA",
       title: "Founder of Cloudify",
       text: "We partnered with SWL Solutions to scale our cloud infrastructure. Their AI expertise and agile approach made the project seamless.",
       image: avatar,
     },
     {
-      name: "David Lee",
+      name: "DAVID LEE",
       title: "COO of FinTech Hub",
       text: "Working with SWL Solutions was transformative. Reliable delivery, innovative thinking, and consistent communication throughout.",
       image: avatar,
     },
     {
-      name: "Aisha Khan",
+      name: "AISHA KHAN",
       title: "VP of Product, DataFlow",
       text: "Their focus on detail and customer satisfaction is unmatched. The end product was delivered ahead of schedule and exceeded expectations.",
       image: avatar,
     },
     {
-      name: "James Carter",
+      name: "JAMES CARTER",
       title: "Managing Director, Nova Systems",
       text: "From the initial concept to deployment, SWL Solutions demonstrated technical excellence and dedication. A true tech partner.",
       image: avatar,
@@ -46,7 +46,7 @@ export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Detect which card is centered
+  // Detect centered card
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -77,21 +77,21 @@ export default function Testimonials() {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scroll to a card when clicking a dot
   const scrollToCard = (index: number) => {
     const container = scrollRef.current;
     if (!container) return;
     const card = container.querySelector(`[data-index="${index}"]`);
     if (card instanceof HTMLElement) {
       container.scrollTo({
-        left:
-          card.offsetLeft -
-          container.offsetWidth / 2 +
-          card.offsetWidth / 2,
+        left: card.offsetLeft - container.offsetWidth / 2 + card.offsetWidth / 2,
         behavior: "smooth",
       });
     }
   };
+
+  const scrollLeft = () => scrollToCard(Math.max(activeIndex - 1, 0));
+  const scrollRight = () =>
+    scrollToCard(Math.min(activeIndex + 1, testimonials.length - 1));
 
   const sectionGradient =
     "linear-gradient(90deg, #0A0A0F 0%, #151527 40%, #000000 100%)";
@@ -101,17 +101,33 @@ export default function Testimonials() {
       className="text-white py-24 overflow-hidden"
       style={{ background: sectionGradient }}
     >
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        {/* Header */}
-        <h2 className="text-3xl sm:text-4xl font-semibold mb-2">
+      <div className="max-w-7xl mx-auto px-6 text-left">
+
+        {/* ======= HEADER ======= */}
+        <h2
+          style={{
+            fontFamily: "Montserrat",
+            fontWeight: 600,
+            fontSize: "28px",
+            lineHeight: "40px",
+          }}
+          className="mb-2"
+        >
           What Our Clients Say
         </h2>
-        <p className="text-white/70 mb-14 text-sm sm:text-base">
-          Don’t just take our word for it. Here’s what our clients have to say
-          about working with us.
+
+        <p
+          className="text-white/70 mb-14 text-sm sm:text-base"
+          style={{
+            fontFamily: "Inter",
+            fontSize: "16px",
+            lineHeight: "22px",
+          }}
+        >
+          Don’t just take our word for it. Here’s what our clients say.
         </p>
 
-        {/* Scrollable List */}
+        {/* ======= SLIDER ======= */}
         <div
           ref={scrollRef}
           className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth justify-start px-2 sm:px-0"
@@ -129,28 +145,28 @@ export default function Testimonials() {
                     ? "scale-105 z-20"
                     : "scale-90 opacity-60 blur-[1px]"
                 }`}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
               >
-                {/* Gradient border (from top-left to bottom-right) */}
+                {/* OUTER BORDER GRADIENT (reduced light blue to ~20%) */}
                 <div
-                  className="w-[300px] sm:w-[380px] lg:w-[440px] h-[360px] sm:h-[390px] lg:h-[410px] rounded-[20px] p-[8px]"
+                  className="rounded-[20px] p-[8px]"
                   style={{
+                    width: isActive ? "500px" : "420px",
+                    height: isActive ? "410px" : "360px",
                     background:
-                      "linear-gradient(to bottom right, rgba(103,100,248,0.9), #000000)",
+                      "linear-gradient(to bottom right, rgba(104, 102, 236, 0.95) 5%, rgba(37,36,122,0.9) 70%)",
                   }}
                 >
-                  {/* Card background gradient (from bottom-right to top-left) */}
+                  {/* INNER CARD */}
                   <div
                     className="w-full h-full rounded-[18px] flex items-center justify-center"
                     style={{
                       background:
-                        "linear-gradient(to top left, rgba(22,18,46,0.98), #05040F)",
+                        "linear-gradient(to top left, rgba(50,49,141,0.9) 5%, #05040F 70%)",
                     }}
                   >
                     <div className="relative w-full h-full flex flex-col items-center justify-center px-8 py-10">
-                      {/* Comma icon at top-left */}
+
+                      {/* Comma Icon */}
                       <img
                         src={commaIcon}
                         alt="quote mark"
@@ -162,9 +178,8 @@ export default function Testimonials() {
                         className="mx-auto mb-6"
                         style={{
                           maxWidth: "471px",
-                          fontFamily: "Inter, system-ui, -apple-system",
+                          fontFamily: "Inter",
                           fontStyle: "italic",
-                          fontWeight: 400,
                           fontSize: "14px",
                           lineHeight: "25.81px",
                           letterSpacing: "0.03em",
@@ -176,7 +191,13 @@ export default function Testimonials() {
 
                       {/* Avatar */}
                       <div className="flex flex-col items-center gap-2 mt-2">
-                        <div className="w-[75px] h-[79px] rounded-full overflow-hidden border-[2.04px] border-[#6764F8] shadow-[0_0_20px_rgba(103,100,248,0.6)]">
+                        <div
+                          className="rounded-full overflow-hidden border-[2.04px] border-[#6764F8]"
+                          style={{
+                            width: "75px",
+                            height: "79px",
+                          }}
+                        >
                           <img
                             src={t.image}
                             alt={t.name}
@@ -194,6 +215,7 @@ export default function Testimonials() {
                           </span>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -202,8 +224,15 @@ export default function Testimonials() {
           })}
         </div>
 
-        {/* Dots Navigation */}
-        <div className="flex justify-center items-center gap-3 mt-10">
+        {/* ======= DOT NAVIGATION WITH < > ======= */}
+        <div className="flex justify-center items-center gap-4 mt-10">
+          <button
+            onClick={scrollLeft}
+            className="text-[#6764F8] text-xl font-bold"
+          >
+            &lt;
+          </button>
+
           {testimonials.map((_, i) => (
             <button
               key={i}
@@ -213,12 +242,23 @@ export default function Testimonials() {
                   ? "bg-[#6764F8] scale-125 shadow-[0_0_12px_rgba(103,100,248,0.7)]"
                   : "bg-white/30 hover:bg-white/50"
               }`}
-            />
+            ></button>
           ))}
+
+          <button
+            onClick={scrollRight}
+            className="text-[#6764F8] text-xl font-bold"
+          >
+            &gt;
+          </button>
         </div>
       </div>
     </section>
   );
 }
+
+
+
+
 
 

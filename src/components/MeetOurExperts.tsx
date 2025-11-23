@@ -45,8 +45,9 @@ export default function MeetOurExperts() {
 
   return (
     <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
+      <div className="max-w-[1220px] mx-auto px-6">
+        
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -54,15 +55,24 @@ export default function MeetOurExperts() {
           viewport={{ once: true }}
           className="text-left mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-2">
+          <h2
+            style={{
+              fontFamily: "Montserrat",
+              fontWeight: 600,
+              fontSize: "28px",
+              lineHeight: "40px",
+            }}
+            className="mb-2"
+          >
             Meet Our Experts
           </h2>
+
           <p className="text-white/70 text-sm sm:text-base">
             The talented individuals powering your projects forward.
           </p>
         </motion.div>
 
-        {/* Experts Container */}
+        {/* EXPERT CARDS */}
         <div
           className="flex md:flex-nowrap flex-row md:gap-4 gap-6 
           overflow-x-auto md:overflow-x-visible scrollbar-hide scroll-smooth snap-x snap-mandatory"
@@ -85,56 +95,51 @@ export default function MeetOurExperts() {
                 whileHover={{
                   scale: isActive ? 1.02 : 1.04,
                 }}
-                className={`relative cursor-pointer rounded-2xl overflow-hidden flex flex-col justify-end 
-                  transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]
-                  snap-center min-w-[80%] sm:min-w-[45%] md:min-w-0
-                  ${
-                    isActive
-                      ? "shadow-[0_0_40px_rgba(162,135,255,0.6)] border-2 border-[#A287FF]"
-                      : "border border-transparent opacity-85 hover:opacity-100"
-                  }`}
+                className={`relative cursor-pointer rounded-[10px] overflow-hidden flex flex-col justify-end 
+                  snap-center min-w-[80%] sm:min-w-[45%] md:min-w-0 transition-all duration-700`}
+                style={{
+                  width: isActive ? "282px" : "185px",
+                  height: "462px",
+                  border: isActive ? "1px solid #6764F8" : "1px solid #414141",
+                  background: isActive
+                    ? "linear-gradient(180deg, rgba(0,0,0,0) 0%, #6764F8 73%)"
+                    : "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%)",
+                }}
               >
                 {/* Expert Image */}
                 <motion.img
                   src={expert.img}
                   alt={expert.name}
-                  className={`w-full h-[400px] md:h-[450px] object-cover transition-all duration-700 ${
-                    isActive ? "brightness-100" : "brightness-75"
-                  }`}
+                  className={`w-full h-[400px] md:h-[450px] object-cover transition-all duration-700`}
                 />
 
-                {/* Overlay Gradient + Text */}
+                {/* GRADIENT OVERLAY (VISIBLE ON IMAGE) */}
                 <motion.div
-                  className={`absolute inset-0 flex flex-col justify-end p-5 sm:p-6 transition-all duration-700 ${
-                    isActive
-                      ? "bg-gradient-to-t from-[#A287FF]/90 via-[#27266C]/70 to-transparent"
-                      : "bg-gradient-to-t from-black/70 via-transparent to-transparent"
-                  }`}
+                  className={`absolute inset-0 flex flex-col justify-end p-5 sm:p-6 transition-all duration-700`}
+                  style={{
+                    background: isActive
+                      ? "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(103,100,248,0.85) 73%)"
+                      : "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.90) 100%)",
+                  }}
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{
-                      opacity: isActive ? 1 : 0.9,
+                      opacity: isActive ? 1 : 1,
                       y: isActive ? 0 : 20,
                     }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                   >
-                    <h3
-                      className={`text-lg font-semibold ${
-                        isActive ? "text-white" : "text-white/90"
-                      }`}
-                    >
+                    <h3 className="text-lg font-semibold text-white">
                       {expert.name}
                     </h3>
-                    <p
-                      className={`text-sm font-medium ${
-                        isActive ? "text-[#A287FF]" : "text-white/70"
-                      }`}
-                    >
+
+                    <p className="text-sm font-medium text-white">
                       {expert.role}
                     </p>
+
                     {isActive && (
-                      <p className="text-sm text-white/80 mt-2 leading-relaxed">
+                      <p className="text-sm text-white mt-2 leading-relaxed">
                         {expert.bio}
                       </p>
                     )}

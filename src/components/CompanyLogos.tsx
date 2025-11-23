@@ -25,6 +25,7 @@ export default function CompanyLogos() {
         background:
           "linear-gradient(90deg, #0C0E1E 0%, #0A0A14 40%, #000000 100%)",
       }}
+      
     >
       {/* ===================== Heading ===================== */}
       <div className="w-[1240px] mx-auto px-4 text-center mb-10 md:mb-12">
