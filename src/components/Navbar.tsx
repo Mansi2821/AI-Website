@@ -8,30 +8,34 @@ import facebookIcon from "../assets/facebook.png";
 import twitterIcon from "../assets/twitter.png";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  // FIXED TYPE ERROR ✔
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
+  const [isOpen, setIsOpen] = useState(false);
   const menu = ["Home", "About Us", "Services", "Case Studies", "Contact Us"];
   const brand = "#6764F8";
 
   return (
     <header
-      className="fixed top-0 left-0 w-full z-50 text-white backdrop-blur-md"
+      className="
+        fixed top-0 left-0 w-full z-50 backdrop-blur-md
+        overflow-x-hidden
+      "
       style={{
         background:
-          "linear-gradient(90deg, #0b0d17ff 0%, #141437ff 5%, rgba(0,0,0,1) 100%)",
+          "linear-gradient(90deg,#0b0d17ff 0%,#141437ff 5%,rgb(0,0,0) 100%)",
       }}
     >
-      {/* ---------------------- TOP BAR (Desktop Only) ---------------------- */}
+      {/* ---------------------- TOP BAR (Desktop only) ---------------------- */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45 }}
-        className="hidden sm:block w-full"
+        className="hidden md:block w-full"
       >
         <div className="max-w-[1240px] mx-auto px-4 py-2">
           <div className="flex items-center justify-between text-xs text-[#cfcfe0]">
-
-            {/* LEFT: Email + Phone */}
+            
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
                 <FaEnvelope style={{ color: brand }} />
@@ -44,7 +48,6 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* RIGHT: Social Icons */}
             <div className="flex items-center gap-4">
               {[linkedinIcon, instagramIcon, facebookIcon, twitterIcon].map(
                 (src, idx) => (
@@ -52,25 +55,16 @@ export default function Navbar() {
                     key={idx}
                     href="#"
                     whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-1.5 rounded-md bg-white/5 hover:bg-[#6764F820] transition-all"
+                    className="p-1.5 bg-white/5 rounded-md hover:bg-[#6764F820]"
                   >
-                    <img src={src} className="w-[16px] h-[16px]" alt="social" />
+                    <img src={src} className="w-[16px] h-[16px]" />
                   </motion.a>
                 )
               )}
             </div>
           </div>
 
-          {/* Blue Divider Line */}
-          <div
-            className="mt-2"
-            style={{
-              width: "100%",
-              height: "1px",
-              backgroundColor: brand,
-            }}
-          />
+          <div className="mt-2 w-full h-[1px]" style={{ background: brand }} />
         </div>
       </motion.div>
 
@@ -79,104 +73,117 @@ export default function Navbar() {
         initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, delay: 0.1 }}
-        className="w-full"
       >
-        <div className="max-w-[1240px] mx-auto px-4 h-[88px] flex items-center justify-between">
-
+        <div
+          className="
+            max-w-[1240px] w-full mx-auto 
+            px-2 sm:px-4
+            h-[70px] sm:h-[80px] md:h-[90px]
+            flex items-center justify-between
+          "
+        >
           {/* LOGO */}
           <motion.div
-            className="text-white"
-            style={{
-              fontFamily: "Montserrat",
-              fontWeight: 700,
-              fontSize: "32px",
-              lineHeight: "100%",
-            }}
+            className="text-white flex-shrink"
+            style={{ fontFamily: "Montserrat", fontWeight: 700 }}
           >
-            <span className="md:text-[32px] text-[28px]">Logo</span>
+            <span className="text-[22px] sm:text-[26px] md:text-[32px]">
+              Logo
+            </span>
           </motion.div>
 
           {/* DESKTOP MENU */}
           <motion.ul
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="hidden md:flex items-center justify-between gap-[35px]"
-            style={{
-              width: "493px",
-              height: "22px",
-            }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="hidden md:flex items-center gap-[35px]"
           >
             {menu.map((item, i) => (
               <motion.li
                 key={i}
+                whileHover={{ scale: 1.05 }}
                 className="cursor-pointer text-white/85 font-medium"
               >
-                <span className="transition-all duration-200 hover:text-[#6764F8]">
+                <span className="hover:text-[#6764F8] transition-all">
                   {item}
                 </span>
               </motion.li>
             ))}
           </motion.ul>
 
-          {/* CTA (Desktop Only) */}
+          {/* CTA DESKTOP */}
           <motion.button
             whileHover={{
               scale: 1.05,
               boxShadow: "0 0 25px rgba(103,100,248,0.6)",
             }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 15,
-            }}
-            className="hidden md:flex justify-center items-center rounded-lg font-semibold text-sm text-white"
-            style={{
-              background: brand,
-              width: "169px",
-              height: "44px",
-            }}
+            className="
+              hidden md:flex rounded-lg font-semibold text-sm text-white
+              justify-center items-center
+            "
+            style={{ background: brand, width: "169px", height: "44px" }}
           >
             Let’s Talk
           </motion.button>
 
-          {/* MOBILE MENU BUTTON */}
-          <button
-            className="md:hidden text-white"
-            onClick={() => setIsOpen((prev) => !prev)}
+          {/* MOBILE HAMBURGER BUTTON */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            className="md:hidden p-2 ml-auto mr-0 text-white flex-shrink-0"
+            onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
-          </button>
+          </motion.button>
         </div>
       </motion.div>
 
-      {/* ------------------------ MOBILE DROPDOWN ------------------------ */}
+      {/* ------------------------ MOBILE MENU ------------------------ */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="md:hidden w-full px-5 pb-6"
+            transition={{ duration: 0.35 }}
+            className="w-full md:hidden overflow-hidden px-3 pb-4"
           >
-            <div className="flex flex-col gap-4 bg-black/90 p-5 rounded-lg border border-white/10 mx-auto w-full">
-              {menu.map((m, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="py-2 text-center text-white/90 font-medium text-base hover:text-[#6764F8]"
+            <div
+              className="
+                bg-black/95 border border-white/10 rounded-lg 
+                p-5 flex flex-col gap-4 text-center
+              "
+            >
+              {/* MOBILE LIST ITEMS — BLUE ON CLICK */}
+              {menu.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setActiveIndex(idx)}
+                  className={`
+                    py-2 font-medium text-base cursor-pointer transition-all
+                    ${activeIndex === idx ? "text-[#6764F8]" : "text-white/90"}
+                  `}
                 >
-                  {m}
-                </a>
+                  {item}
+                </motion.div>
               ))}
 
-              <button
-                className="w-full py-3 rounded-lg font-semibold text-white text-base"
+              {/* MOBILE CTA — CENTERED */}
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 15px rgba(103,100,248,0.4)",
+                }}
+                className="
+                  w-full py-3 rounded-lg font-semibold text-white text-base
+                  flex justify-center items-center
+                "
                 style={{ background: brand }}
               >
                 Let’s Talk
-              </button>
+              </motion.button>
             </div>
           </motion.div>
         )}
@@ -184,6 +191,5 @@ export default function Navbar() {
     </header>
   );
 }
-
 
 

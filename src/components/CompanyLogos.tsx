@@ -25,97 +25,89 @@ export default function CompanyLogos() {
         background:
           "linear-gradient(90deg, #0C0E1E 0%, #0A0A14 40%, #000000 100%)",
       }}
-      
     >
-      {/* ===================== Heading ===================== */}
-      <div className="w-[1240px] mx-auto px-4 text-center mb-10 md:mb-12">
+      {/* Heading */}
+      <div className="max-w-[1240px] mx-auto px-4 text-center mb-10 md:mb-12">
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          style={{
-            fontWeight: 600,
-            fontFamily: "Inter",
-            fontSize: "22px",
-            lineHeight: "28px",
-            letterSpacing: "0",
-          }}
-          className="text-white"
+          className="text-white font-semibold text-[20px] md:text-[22px] leading-[28px]"
+          style={{ fontFamily: "Inter" }}
         >
           Trusted by <span className="font-semibold">67+ startups and agencies</span>
         </motion.p>
       </div>
 
-      {/* ===================== LOGO LIST ===================== */}
-      <div className="w-[1240px] mx-auto px-4">
+      {/* Logo list */}
+      <div className="max-w-[1240px] mx-auto px-4">
 
-        {/* DESKTOP — One Single Line (no scroll) */}
-        <div
-          className="hidden md:flex justify-center items-center"
-          style={{
-            width: "1120px",
-            maxWidth: "1120px",
-            gap: "80px",
-            paddingTop: "5.5px",
-            paddingBottom: "5.5px",
-            height: "48px",
-            margin: "0 auto",
-          }}
-        >
+        {/* DESKTOP VIEW */}
+        <div className="hidden md:flex justify-center flex-wrap gap-16">
           {logos.map((logo, idx) => (
             <motion.img
               key={idx}
               src={logo.src}
               alt={logo.name}
-              style={{
-                width: "97.5px",
-                height: "25px",
-                filter: "brightness(0) invert(1)", // makes every logo white
+              animate={{ y: [0, -6, 0], opacity: [0.8, 1, 0.8] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: ["easeInOut"],
               }}
-              className="opacity-90 transition-all duration-300"
+              className="
+                h-[32px]         /* UNIFORM HEIGHT */
+                w-auto           /* AUTO WIDTH – NO CROPPING */
+                object-contain   /* FULL LOGO ALWAYS VISIBLE */
+                opacity-90 brightness-0 invert
+                transition-all duration-300
+              "
               whileHover={{
                 scale: 1.12,
                 opacity: 1,
                 filter:
                   "brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))",
               }}
-              whileTap={{ scale: 0.96 }}
             />
           ))}
         </div>
 
-        {/* MOBILE — Horizontal Scroll List */}
+        {/* MOBILE VIEW — HORIZONTAL SCROLL */}
         <div
-          className="flex md:hidden items-center overflow-x-auto scrollbar-hide px-2"
-          style={{
-            gap: "40px",
-            scrollSnapType: "x mandatory",
-            WebkitOverflowScrolling: "touch",
-          }}
+          className="
+            flex md:hidden gap-10 px-2
+            overflow-x-auto scrollbar-hide
+            snap-x snap-mandatory
+            w-full
+            py-3
+          "
         >
           {logos.map((logo, idx) => (
-            <motion.div
-              key={idx}
-              className="flex-shrink-0 scroll-smooth"
-              style={{ scrollSnapAlign: "center" }}
-            >
+            <motion.div key={idx} className="flex-shrink-0 snap-center">
               <motion.img
                 src={logo.src}
                 alt={logo.name}
-                style={{
-                  width: "97.5px",
-                  height: "25px",
-                  filter: "brightness(0) invert(1)", // white logos
+                animate={{ y: [0, -6, 0], opacity: [0.8, 1, 0.8] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: ["easeInOut"],
                 }}
-                className="opacity-90 transition-all duration-300"
+                className="
+                  h-[28px]         /* UNIFORM MOBILE HEIGHT */
+                  w-auto           /* AUTO WIDTH – NO CROPPING */
+                  object-contain   /* FULL LOGO ALWAYS VISIBLE */
+                  opacity-90 brightness-0 invert
+                  transition-all duration-300
+                  
+                "
                 whileHover={{
-                  scale: 1.12,
+                  scale: 1.1,
                   opacity: 1,
                   filter:
                     "brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))",
                 }}
-                whileTap={{ scale: 0.95 }}
               />
             </motion.div>
           ))}

@@ -46,7 +46,6 @@ export default function MeetOurExperts() {
   return (
     <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24 overflow-hidden">
       <div className="max-w-[1220px] mx-auto px-6">
-        
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -74,8 +73,11 @@ export default function MeetOurExperts() {
 
         {/* EXPERT CARDS */}
         <div
-          className="flex md:flex-nowrap flex-row md:gap-4 gap-6 
-          overflow-x-auto md:overflow-x-visible scrollbar-hide scroll-smooth snap-x snap-mandatory"
+          className="
+            flex md:flex-nowrap flex-row md:gap-4 gap-6 
+            overflow-x-auto md:overflow-x-visible 
+            scrollbar-hide scroll-smooth snap-x snap-mandatory
+          "
         >
           {experts.map((expert, i) => {
             const isActive = activeIndex === i;
@@ -95,27 +97,31 @@ export default function MeetOurExperts() {
                 whileHover={{
                   scale: isActive ? 1.02 : 1.04,
                 }}
-                className={`relative cursor-pointer rounded-[10px] overflow-hidden flex flex-col justify-end 
-                  snap-center min-w-[80%] sm:min-w-[45%] md:min-w-0 transition-all duration-700`}
+                className={`
+                  relative cursor-pointer rounded-[10px] overflow-hidden 
+                  flex flex-col justify-end snap-center 
+                  min-w-[80%] sm:min-w-[55%] md:min-w-0 
+                  transition-all duration-700
+                `}
                 style={{
                   width: isActive ? "282px" : "185px",
-                  height: "462px",
+                  height: "462px", // card height stays the same
                   border: isActive ? "1px solid #6764F8" : "1px solid #414141",
                   background: isActive
                     ? "linear-gradient(180deg, rgba(0,0,0,0) 0%, #6764F8 73%)"
                     : "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%)",
                 }}
               >
-                {/* Expert Image */}
+                {/* Expert Image fills the entire card height */}
                 <motion.img
                   src={expert.img}
                   alt={expert.name}
-                  className={`w-full h-[400px] md:h-[450px] object-cover transition-all duration-700`}
+                  className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
                 />
 
-                {/* GRADIENT OVERLAY (VISIBLE ON IMAGE) */}
+                {/* GRADIENT OVERLAY ON TOP OF IMAGE */}
                 <motion.div
-                  className={`absolute inset-0 flex flex-col justify-end p-5 sm:p-6 transition-all duration-700`}
+                  className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6 transition-all duration-700"
                   style={{
                     background: isActive
                       ? "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(103,100,248,0.85) 73%)"
@@ -125,8 +131,8 @@ export default function MeetOurExperts() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{
-                      opacity: isActive ? 1 : 1,
-                      y: isActive ? 0 : 20,
+                      opacity: 1,
+                      y: isActive ? 0 : 10,
                     }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                   >

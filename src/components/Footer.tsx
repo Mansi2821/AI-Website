@@ -18,10 +18,15 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="relative flex flex-col md:flex-row items-center justify-between overflow-hidden mb-20"
+          className="
+            relative flex flex-col md:flex-row 
+            items-center md:items-start justify-between 
+            mb-20 overflow-hidden
+            text-center md:text-left
+          "
           style={{
             width: "100%",
-            height: "304px",
+            minHeight: "304px",
             borderRadius: "16px",
             border: "1px solid #41414199",
             background:
@@ -31,7 +36,7 @@ export default function Footer() {
         >
 
           {/* LEFT TEXT */}
-          <div className="relative z-10 w-full md:w-1/2 p-10">
+          <div className="relative z-20 w-full md:w-1/2 p-10 flex flex-col items-center md:items-start">
             <h3
               style={{
                 fontFamily: "Montserrat",
@@ -57,31 +62,35 @@ export default function Footer() {
             </p>
 
             {/* FORM */}
-            <form className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <form 
+              className="
+                flex flex-col sm:flex-row 
+                items-center md:items-center 
+                gap-3 w-full justify-center md:justify-start
+              "
+            >
               <input
                 type="email"
                 placeholder="Enter your email"
                 style={{
-                  width: "274px",
                   height: "44px",
                   borderRadius: "8px",
                   background: "#6764F81A",
                   border: "1px solid #D5DAE180",
                   boxShadow: "0px 1px 2px #0000000D",
                 }}
-                className="px-4 text-white outline-none text-sm w-full"
+                className="px-4 text-white outline-none text-sm w-full sm:w-[274px]"
               />
 
               <button
                 type="submit"
                 style={{
-                  width: "169px",
                   height: "44px",
                   borderRadius: "8px",
                   padding: "14px 24px",
                   background: "#6764F8",
                 }}
-                className="text-white font-semibold text-sm"
+                className="text-white font-semibold text-sm w-full sm:w-[169px]"
               >
                 Subscribe
               </button>
@@ -89,20 +98,32 @@ export default function Footer() {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/2 lg:w-[45%]">
+          <div className="relative w-full md:w-1/2 h-[200px] md:h-full mt-4 md:mt-0 z-10 flex justify-center md:block">
             <img
               src={mailImage}
               alt="Mail Illustration"
-              className="w-full h-full object-cover object-right rounded-r-[16px]"
+              className="
+                absolute md:relative inset-0 
+                w-full h-full object-cover object-center 
+                md:rounded-r-[16px] rounded-b-[16px]
+              "
             />
           </div>
         </motion.div>
 
         {/* ===================== FOOTER CONTENT ===================== */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+        <div
+          className="
+            grid grid-cols-1 
+            sm:grid-cols-2 
+            lg:grid-cols-3 
+            gap-10 mb-10 
+            text-center lg:text-left
+          "
+        >
 
           {/* LEFT — LOGO + SOCIAL */}
-          <div>
+          <div className="flex flex-col items-center lg:items-start">
             <h2
               style={{
                 fontFamily: "Montserrat",
@@ -121,7 +142,7 @@ export default function Footer() {
             </p>
 
             {/* SOCIAL ICONS */}
-            <div className="flex gap-4 mt-4">
+            <div className="flex gap-4 mt-4 justify-center lg:justify-start">
               {[twitterIcon, facebookIcon, instagramIcon, linkedinIcon].map(
                 (icon, idx) => (
                   <motion.img
@@ -137,8 +158,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* CENTER — COMPANY (CENTER ALIGNED) */}
-          <div className="text-center mx-auto">
+          {/* CENTER — COMPANY */}
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2 text-sm text-white/70">
               {["Home", "About Us", "Case Studies", "Contact Us"].map(
@@ -151,8 +172,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* RIGHT — CORE SERVICES (RIGHT ALIGNED) */}
-          <div className="text-right ml-auto">
+          {/* RIGHT — CORE SERVICES */}
+          <div className="flex flex-col items-center lg:items-end">
             <h3 className="text-lg font-semibold mb-4">Core Services</h3>
             <ul className="space-y-2 text-sm text-white/70">
               {[

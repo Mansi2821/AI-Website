@@ -3,8 +3,25 @@ import { motion } from "framer-motion";
 import avatar from "../assets/avatar.png";
 import commaIcon from "../assets/comma.png";
 
+/* ---------------- TYPES ---------------- */
+
+interface TestimonialItem {
+  name: string;
+  title: string;
+  text: string;
+  image: string;
+}
+
+interface EmptyCard {
+  empty: true;
+}
+
+type CardType = TestimonialItem | EmptyCard;
+
+/* ---------------- COMPONENT ---------------- */
+
 export default function Testimonials() {
-  const testimonials = [
+  const testimonials: TestimonialItem[] = [
     {
       name: "SARAH JOHNSON",
       title: "CEO of TechStartup Inc",
@@ -46,7 +63,14 @@ export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Detect centered card
+  /* Add empty cards at start and end */
+  const EXTENDED: CardType[] = [
+    { empty: true },
+    ...testimonials,
+    { empty: true },
+  ];
+
+  /* Detect centered card */
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -59,6 +83,7 @@ export default function Testimonials() {
       let closestDistance = Infinity;
 
       const cards = container.querySelectorAll(".testimonial-card");
+
       cards.forEach((card, index) => {
         const rect = card.getBoundingClientRect();
         const cardCenter = rect.left + rect.width / 2;
@@ -74,14 +99,17 @@ export default function Testimonials() {
 
     container.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
+
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToCard = (index: number) => {
     const container = scrollRef.current;
     if (!container) return;
-    const card = container.querySelector(`[data-index="${index}"]`);
-    if (card instanceof HTMLElement) {
+
+    const card = container.querySelector(`[data-index="${index}"]`) as HTMLElement;
+
+    if (card) {
       container.scrollTo({
         left: card.offsetLeft - container.offsetWidth / 2 + card.offsetWidth / 2,
         behavior: "smooth",
@@ -90,20 +118,17 @@ export default function Testimonials() {
   };
 
   const scrollLeft = () => scrollToCard(Math.max(activeIndex - 1, 0));
-  const scrollRight = () =>
-    scrollToCard(Math.min(activeIndex + 1, testimonials.length - 1));
-
-  const sectionGradient =
-    "linear-gradient(90deg, #0A0A0F 0%, #151527 40%, #000000 100%)";
+  const scrollRight = () => scrollToCard(Math.min(activeIndex + 1, EXTENDED.length - 1));
 
   return (
     <section
       className="text-white py-24 overflow-hidden"
-      style={{ background: sectionGradient }}
+      style={{
+        background: "linear-gradient(90deg, #0A0A0F 0%, #151527 40%, #000000 100%)",
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 text-left">
 
-        {/* ======= HEADER ======= */}
         <h2
           style={{
             fontFamily: "Montserrat",
@@ -127,15 +152,32 @@ export default function Testimonials() {
           Don’t just take our word for it. Here’s what our clients say.
         </p>
 
-        {/* ======= SLIDER ======= */}
+        {/* SLIDER */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth justify-start px-2 sm:px-0"
+          className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth px-2 sm:px-0"
           style={{ height: "430px" }}
         >
-          {testimonials.map((t, i) => {
+          {EXTENDED.map((t, i) => {
             const isActive = i === activeIndex;
 
+            /* EMPTY CARD (start/end) */
+            if ("empty" in t) {
+              return (
+                <div
+                  key={i}
+                  data-index={i}
+                  className="testimonial-card flex-shrink-0 mx-4 snap-center"
+                  style={{
+                    width: window.innerWidth < 640 ? "270px" : "420px",
+                    height: window.innerWidth < 640 ? "300px" : "360px",
+                    opacity: 0,
+                  }}
+                />
+              );
+            }
+
+            /* NORMAL TESTIMONIAL CARD */
             return (
               <motion.div
                 key={i}
@@ -146,17 +188,20 @@ export default function Testimonials() {
                     : "scale-90 opacity-60 blur-[1px]"
                 }`}
               >
-                {/* OUTER BORDER GRADIENT (reduced light blue to ~20%) */}
                 <div
                   className="rounded-[20px] p-[8px]"
                   style={{
-                    width: isActive ? "500px" : "420px",
-                    height: isActive ? "410px" : "360px",
+                    width: isActive
+                      ? (window.innerWidth < 640 ? "310px" : "500px")
+                      : (window.innerWidth < 640 ? "270px" : "420px"),
+                    height: isActive
+                      ? (window.innerWidth < 640 ? "350px" : "410px")
+                      : (window.innerWidth < 640 ? "300px" : "360px"),
+                    transition: "all 0.5s",
                     background:
-                      "linear-gradient(to bottom right, rgba(104, 102, 236, 0.95) 5%, rgba(37,36,122,0.9) 70%)",
+                      "linear-gradient(to bottom right, rgba(104,102,236,0.95) 5%, rgba(37,36,122,0.9) 70%)",
                   }}
                 >
-                  {/* INNER CARD */}
                   <div
                     className="w-full h-full rounded-[18px] flex items-center justify-center"
                     style={{
@@ -166,14 +211,12 @@ export default function Testimonials() {
                   >
                     <div className="relative w-full h-full flex flex-col items-center justify-center px-8 py-10">
 
-                      {/* Comma Icon */}
                       <img
                         src={commaIcon}
                         alt="quote mark"
                         className="absolute top-6 left-8 w-8 h-6 object-contain"
                       />
 
-                      {/* Text */}
                       <p
                         className="mx-auto mb-6"
                         style={{
@@ -189,7 +232,7 @@ export default function Testimonials() {
                         {t.text}
                       </p>
 
-                      {/* Avatar */}
+                      {/* AVATAR */}
                       <div className="flex flex-col items-center gap-2 mt-2">
                         <div
                           className="rounded-full overflow-hidden border-[2.04px] border-[#6764F8]"
@@ -205,7 +248,6 @@ export default function Testimonials() {
                           />
                         </div>
 
-                        {/* Name + Title */}
                         <div className="flex flex-col items-center gap-[2px] mt-1">
                           <span className="font-semibold text-sm sm:text-base">
                             {t.name}
@@ -224,31 +266,27 @@ export default function Testimonials() {
           })}
         </div>
 
-        {/* ======= DOT NAVIGATION WITH < > ======= */}
+        {/* DOTS */}
         <div className="flex justify-center items-center gap-4 mt-10">
-          <button
-            onClick={scrollLeft}
-            className="text-[#6764F8] text-xl font-bold"
-          >
+          <button onClick={scrollLeft} className="text-[#6764F8] text-xl font-bold">
             &lt;
           </button>
 
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => scrollToCard(i)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                activeIndex === i
-                  ? "bg-[#6764F8] scale-125 shadow-[0_0_12px_rgba(103,100,248,0.7)]"
-                  : "bg-white/30 hover:bg-white/50"
-              }`}
-            ></button>
-          ))}
+          {EXTENDED.map((t, i) =>
+            "empty" in t ? null : (
+              <button
+                key={i}
+                onClick={() => scrollToCard(i)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  activeIndex === i
+                    ? "bg-[#6764F8] scale-125 shadow-[0_0_12px_rgba(103,100,248,0.7)]"
+                    : "bg-white/30 hover:bg-white/50"
+                }`}
+              ></button>
+            )
+          )}
 
-          <button
-            onClick={scrollRight}
-            className="text-[#6764F8] text-xl font-bold"
-          >
+          <button onClick={scrollRight} className="text-[#6764F8] text-xl font-bold">
             &gt;
           </button>
         </div>
@@ -256,6 +294,10 @@ export default function Testimonials() {
     </section>
   );
 }
+
+
+
+
 
 
 

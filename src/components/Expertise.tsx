@@ -8,9 +8,9 @@ import centerGraphic from "../assets/Group 24.png";
 
 export default function Expertise() {
   const brand = "#6764F8";
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);   // desktop hover
+  const [active, setActive] = useState<string | null>(null);     // mobile tap
 
-  // Perfect vertical alignment from screenshot
   const itemsLeft = [
     { id: "auto", title: "AI & Automation", icon: <FaRobot />, pos: "top-[4%]" },
     { id: "ml", title: "AI & Machine Learning", icon: <GiArtificialIntelligence />, pos: "top-[45%]" },
@@ -54,10 +54,10 @@ export default function Expertise() {
         </p>
       </div>
 
-      {/* DESKTOP */}
+      {/* DESKTOP VIEW */}
       <div className="hidden md:flex relative max-w-[1200px] mx-auto justify-center items-center">
 
-        {/* CENTER GRAPHIC */}
+        {/* CENTER IMAGE */}
         <img
           src={centerGraphic}
           alt="Expertise Center Graphic"
@@ -77,7 +77,7 @@ export default function Expertise() {
             onMouseEnter={() => setHovered(item.id)}
             onMouseLeave={() => setHovered(null)}
             style={{
-              transform: "translateY(-50%) translateX(80px)", // ← moved towards center
+              transform: "translateY(-50%) translateX(80px)",
             }}
           >
             {/* TEXT */}
@@ -94,27 +94,29 @@ export default function Expertise() {
             </span>
 
             {/* ICON BOX */}
-            <div
+            <motion.div
+              animate={{
+                scale: hovered === item.id ? 1.15 : 1,
+                backgroundColor: hovered === item.id ? `${brand}22` : "transparent",
+                boxShadow:
+                  hovered === item.id
+                    ? `0 0 14px ${brand}`
+                    : "0 0 8px rgba(103,100,248,0.25)",
+              }}
+              transition={{ duration: 0.3 }}
               style={{
                 width: 42,
                 height: 42,
                 borderRadius: "8px",
                 border: `1px solid ${brand}`,
                 color: brand,
-                background: hovered === item.id ? `${brand}22` : "transparent",
-                boxShadow:
-                  hovered === item.id
-                    ? `0 0 14px ${brand}`
-                    : "0 0 8px rgba(103,100,248,0.25)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                transform: hovered === item.id ? "scale(1.15)" : "scale(1)",
-                transition: "0.3s",
               }}
             >
               {item.icon}
-            </div>
+            </motion.div>
           </motion.div>
         ))}
 
@@ -130,31 +132,33 @@ export default function Expertise() {
             onMouseEnter={() => setHovered(item.id)}
             onMouseLeave={() => setHovered(null)}
             style={{
-              transform: "translateY(-50%) translateX(-80px)", // ← moved towards center
+              transform: "translateY(-50%) translateX(-80px)",
             }}
           >
             {/* ICON BOX */}
-            <div
+            <motion.div
+              animate={{
+                scale: hovered === item.id ? 1.15 : 1,
+                backgroundColor: hovered === item.id ? `${brand}22` : "transparent",
+                boxShadow:
+                  hovered === item.id
+                    ? `0 0 14px ${brand}`
+                    : "0 0 8px rgba(103,100,248,0.25)",
+              }}
+              transition={{ duration: 0.3 }}
               style={{
                 width: 42,
                 height: 42,
                 borderRadius: "8px",
                 border: `1px solid ${brand}`,
                 color: brand,
-                background: hovered === item.id ? `${brand}22` : "transparent",
-                boxShadow:
-                  hovered === item.id
-                    ? `0 0 14px ${brand}`
-                    : "0 0 8px rgba(103,100,248,0.25)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                transform: hovered === item.id ? "scale(1.15)" : "scale(1)",
-                transition: "0.3s",
               }}
             >
               {item.icon}
-            </div>
+            </motion.div>
 
             {/* TEXT */}
             <span
@@ -170,49 +174,64 @@ export default function Expertise() {
             </span>
           </motion.div>
         ))}
-
       </div>
 
-      {/* MOBILE */}
+      {/* MOBILE VIEW — NOW WITH CLICK ANIMATION */}
       <div className="md:hidden flex flex-col items-center gap-6 px-6 mt-10">
-        {[...itemsLeft, ...itemsRight].map((item, idx) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: idx * 0.08 }}
-            className="w-full flex items-center justify-between p-4 rounded-xl bg-[#1B1B2A]/80 border border-[#3B3473]"
-          >
-            <div
-              style={{
-                width: 42,
-                height: 42,
-                borderRadius: "8px",
-                border: `1px solid ${brand}`,
-                color: brand,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {item.icon}
-            </div>
+        {[...itemsLeft, ...itemsRight].map((item, idx) => {
+          const isActive = active === item.id;
 
-            <span
-              style={{
-                fontFamily: "Inter",
-                fontSize: "16px",
-                fontWeight: 400,
-              }}
+          return (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-[#1B1B2A]/80 border border-[#3B3473]"
+              onClick={() => setActive(item.id)}
             >
-              {item.title}
-            </span>
-          </motion.div>
-        ))}
+              {/* ICON BOX */}
+              <motion.div
+                animate={{
+                  scale: isActive ? 1.15 : 1,
+                  backgroundColor: isActive ? `${brand}22` : "transparent",
+                  boxShadow: isActive
+                    ? `0 0 14px ${brand}`
+                    : "0 0 6px rgba(103,100,248,0.20)",
+                }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  width: 42,
+                  height: 42,
+                  borderRadius: "8px",
+                  border: `1px solid ${brand}`,
+                  color: brand,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {item.icon}
+              </motion.div>
+
+              {/* TEXT */}
+              <span
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  color: isActive ? brand : "#ffffff",
+                  transition: "0.3s",
+                }}
+              >
+                {item.title}
+              </span>
+            </motion.div>
+          );
+        })}
       </div>
 
     </section>
   );
 }
-
 

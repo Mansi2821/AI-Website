@@ -21,41 +21,35 @@ export default function Hero() {
           "linear-gradient(90deg, #0b0d17ff 0%, #121232ff 5%, rgba(0,0,0,1) 100%)",
       }}
     >
-      {/* WRAPPER — Desktop fixed width, Mobile full width */}
-      <div className="
-        w-[1240px] mx-auto px-4 
-        grid grid-cols-1 md:grid-cols-2 
-        items-center gap-12
-        lg:w-[1240px]
-        md:w-[90%]
-        sm:w-full sm:px-6
-      ">
-
-        {/* ------------------------------------------------------------------
-            LEFT SECTION (TEXT)
-        ------------------------------------------------------------------ */}
+      <div
+        className="
+          max-w-[1240px] mx-auto px-4 
+          grid grid-cols-1 md:grid-cols-2 
+          items-center gap-12
+        "
+      >
+        {/* LEFT CONTENT */}
         <div
           className="
-            flex flex-col justify-center items-start
-            sm:items-center sm:text-center sm:w-full
+            flex flex-col justify-center 
+            items-start                /* desktop left */
+            text-left                  /* desktop left */
+            max-md:items-center        /* mobile center */
+            max-md:text-center         /* mobile center */
           "
         >
-          {/* MAIN HEADING */}
+          {/* HEADING */}
           <motion.h1
             variants={textVariants}
             initial="hidden"
             animate="visible"
             custom={0.1}
-            style={{
-              fontFamily: "Montserrat",
-              fontWeight: 800,
-              fontSize: "44px",
-              lineHeight: "52px",
-              width: "544px",
-            }}
+            style={{ fontFamily: "Montserrat", fontWeight: 800 }}
             className="
               text-white mb-6
-              sm:text-[32px] sm:leading-[40px] sm:w-full
+              text-[32px] leading-[40px]
+              md:text-[44px] md:leading-[52px]
+              w-full md:w-[544px]
             "
           >
             Shaping the Future <br />
@@ -73,17 +67,12 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             custom={0.3}
-            style={{
-              fontFamily: "Inter",
-              fontWeight: 400,
-              fontSize: "20px",
-              lineHeight: "28px",
-              color: "#D3D3D3",
-              width: "544px",
-            }}
+            style={{ fontFamily: "Inter" }}
             className="
-              mb-8
-              sm:w-full sm:text-center sm:text-[16px] sm:leading-[24px]
+              text-[#D3D3D3] mb-8
+              text-[16px] leading-[24px]
+              md:text-[20px] md:leading-[28px]
+              w-full md:w-[544px]
             "
           >
             SWL Solutions is your dedicated partner in crafting bespoke software
@@ -98,11 +87,13 @@ export default function Hero() {
             animate="visible"
             custom={0.5}
             className="
-              flex flex-col sm:flex-col sm:items-center sm:w-full sm:gap-4
-              gap-[10px]
+              flex gap-4
+              flex-row               /* desktop row */
+              max-md:flex-col        /* mobile column */
+              max-md:w-full 
+              max-md:items-center
             "
           >
-            {/* OUR SERVICES */}
             <motion.button
               whileHover={{
                 backgroundColor: "rgba(255,255,255,0.05)",
@@ -110,80 +101,64 @@ export default function Hero() {
               }}
               whileTap={{ scale: 0.97 }}
               style={{
-                width: "169px",
-                height: "44px",
-                padding: "14px 24px",
-                borderRadius: "8px",
                 border: `1px solid ${brand}`,
                 fontFamily: "Inter",
-                fontWeight: 500,
-                fontSize: "16px",
               }}
-              className="text-white bg-transparent sm:mx-auto"
+              className="
+                text-white bg-transparent
+                w-[169px] h-[44px] rounded-[8px]
+                text-[16px] font-medium
+              "
             >
               Our Services
             </motion.button>
 
-            {/* CONTACT US */}
             <motion.button
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 25px rgba(103,100,248,0.6)",
               }}
               whileTap={{ scale: 0.97 }}
-              style={{
-                width: "169px",
-                height: "44px",
-                padding: "14px 24px",
-                borderRadius: "8px",
-                background: brand,
-                fontFamily: "Inter",
-                fontWeight: 500,
-                fontSize: "16px",
-                color: "#fff",
-              }}
-              className="sm:mx-auto"
+              style={{ background: brand, fontFamily: "Inter" }}
+              className="
+                text-white 
+                w-[169px] h-[44px] rounded-[8px]
+                text-[16px] font-medium
+              "
             >
               Contact Us
             </motion.button>
           </motion.div>
         </div>
 
-        {/* ------------------------------------------------------------------
-            RIGHT SECTION — IMAGE
-        ------------------------------------------------------------------ */}
+        {/* RIGHT IMAGE */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
           className="
-            relative flex justify-center md:justify-end
-            sm:justify-center sm:mt-6
+            flex justify-center 
+            md:justify-end
+            max-md:mt-6
           "
         >
           <img
             src={heroImage}
             alt="AI Brain"
-            style={{
-              width: "496px",
-              height: "512px",
-            }}
             className="
-              object-contain 
+              object-contain
               drop-shadow-[0_0_40px_rgba(103,100,248,0.3)]
-              sm:w-[80%] sm:h-auto
+              w-[80%] md:w-[496px] h-auto
             "
           />
         </motion.div>
       </div>
 
-      {/* MOBILE GRADIENT OVERLAY */}
-      <div className="absolute bottom-0 left-0 w-full h-24 sm:hidden bg-gradient-to-t from-[#0A0A14] to-transparent" />
+      {/* Below fade */}
+      <div className="absolute bottom-0 left-0 w-full h-24 max-md:hidden bg-gradient-to-t from-[#0A0A14] to-transparent" />
     </section>
   );
 }
-
-
 
 
 
