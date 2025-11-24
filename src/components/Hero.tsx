@@ -18,7 +18,7 @@ export default function Hero() {
       className="relative overflow-hidden pt-[160px]"
       style={{
         background:
-          "linear-gradient(90deg, #0b0d17ff 0%, #121232ff 5%, rgba(0,0,0,1) 100%)",
+          "linear-gradient(90deg, #1f2233ff 0%, #121232ff 5%, rgba(0,0,0,1) 100%)",
       }}
     >
       <div

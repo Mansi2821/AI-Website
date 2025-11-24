@@ -20,7 +20,9 @@ export default function CompanyLogos() {
 
   return (
     <section
-      className="relative py-12 sm:py-14 md:py-16 overflow-hidden"
+      // className="relative py-12 sm:py-14 md:py-16 overflow-hidden"
+      className="relative pt-24 sm:pt-28 md:pt-32 pb-12 overflow-hidden"
+
       style={{
         background:
           "linear-gradient(90deg, #0C0E1E 0%, #0A0A14 40%, #000000 100%)",

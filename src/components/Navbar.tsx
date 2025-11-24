@@ -23,7 +23,7 @@ export default function Navbar() {
       "
       style={{
         background:
-          "linear-gradient(90deg,#0b0d17ff 0%,#141437ff 5%,rgb(0,0,0) 100%)",
+          "linear-gradient(90deg, #1f2233ff 0%,#141437ff 5%,rgb(0,0,0) 100%)",
       }}
     >
       {/* ---------------------- TOP BAR (Desktop only) ---------------------- */}
