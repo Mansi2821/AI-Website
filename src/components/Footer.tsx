@@ -173,7 +173,7 @@ export default function Footer() {
           </div>
 
           {/* RIGHT — CORE SERVICES */}
-          <div className="flex flex-col items-center lg:items-end">
+          <div className="flex flex-col items-center lg:items-start lg:pl-50">
             <h3 className="text-lg font-semibold mb-4">Core Services</h3>
             <ul className="space-y-2 text-sm text-white/70">
               {[
