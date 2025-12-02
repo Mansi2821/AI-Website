@@ -88,12 +88,7 @@ export default function LatestInsights() {
   ];
 
   return (
-    <section
-      className="text-white py-16 overflow-hidden"
-      style={{
-        background: "linear-gradient(90deg,#0A0A0F 0%,#151527 40%,#000000 100%)",
-      }}
-    >
+    <section className="text-white py-16 overflow-hidden">
       <div className="max-w-[1220px] mx-auto px-4 sm:px-6">
 
         {/* HEADER */}
@@ -122,7 +117,7 @@ export default function LatestInsights() {
         </motion.div>
 
         {/* DESKTOP GRID */}
-        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-12">
           {insights.map((item, i) => (
             <InsightCard
               key={i}
@@ -166,10 +161,18 @@ function InsightCard({
   return (
     <motion.div
       onClick={() => (mobile ? setActiveCard(isActive ? null : index) : null)}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+
+      
+      initial={{ opacity: 0, y: 80, scale: 0.92 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{
+        duration: 0.65,
+        ease: "easeOut",
+        delay: index * 0.05, 
+      }}
       viewport={{ once: true }}
+
+      /* Existing hover effect */
       whileHover={
         !mobile
           ? { scale: 1.03, boxShadow: "0 0 45px rgba(103,100,248,0.55)" }
@@ -178,17 +181,14 @@ function InsightCard({
       animate={
         mobile
           ? isActive
-            ? {
-                scale: 1.03,
-                boxShadow: "0 0 45px rgba(103,100,248,0.55)",
-              }
+            ? { scale: 1.03, boxShadow: "0 0 45px rgba(103,100,248,0.55)" }
             : { scale: 1 }
           : {}
       }
       className="group overflow-hidden transition-all duration-500 cursor-pointer relative snap-center"
       style={{
-        width: mobile ? "85vw" : "393px",
-        maxWidth: "393px",
+        width: mobile ? "85vw" : "380px",
+        maxWidth: "380px",
         minWidth: mobile ? "85vw" : "unset",
         height: mobile ? "auto" : "282px",
         borderRadius: "12px",
@@ -209,7 +209,7 @@ function InsightCard({
               borderRadius: "12px",
               border: "1px solid #272727",
               marginLeft: mobile ? "0px" : "8px",
-              maxWidth: "377px",
+              maxWidth: "360px",
             }}
           >
             <motion.img
@@ -287,4 +287,14 @@ function InsightCard({
     </motion.div>
   );
 }
+
+
+
+
+
+
+
+
+
+
 

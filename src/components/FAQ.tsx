@@ -33,13 +33,9 @@ export default function FAQ() {
   };
 
   return (
-    <section
-      className="text-white py-24 overflow-hidden"
-      style={{
-        background: "linear-gradient(90deg,#0A0A0F 0%,#151527 40%,#000000 100%)",
-      }}
-    >
+    <section className="text-white py-24 overflow-hidden">
       <div className="max-w-[1220px] mx-auto px-6">
+        
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -71,12 +67,16 @@ export default function FAQ() {
           {faqs.map((faq, i) => {
             const isActive = activeIndex === i;
 
+           
+            const slideFromLeft = i % 2 === 0;
+            const xStart = slideFromLeft ? -200 : 200;
+
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                initial={{ opacity: 0, x: xStart }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.55, delay: i * 0.08, ease: "easeOut" }}
                 viewport={{ once: true }}
                 className={`overflow-hidden transition-all duration-500 rounded-[10px]`}
                 style={{
@@ -144,6 +144,16 @@ export default function FAQ() {
     </section>
   );
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -38,6 +38,7 @@ export default function WhatDrives() {
     setCurrentIndex(index);
   };
 
+  /* Detect scroll position */
   useEffect(() => {
     const ref = scrollRef.current;
     if (!ref) return;
@@ -52,20 +53,30 @@ export default function WhatDrives() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-20 overflow-hidden">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 md:px-8 space-y-20">
+    <section className="text-white py-20 overflow-hidden">
+      <motion.div
+        className="max-w-[1240px] mx-auto px-4 sm:px-6 md:px-8 space-y-20"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
 
         {/* WHAT DRIVES SECTION */}
         <motion.div
           className="flex flex-col lg:flex-row items-start justify-between gap-12"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-
           {/* LEFT TEXT */}
-          <div className="w-full lg:w-[420px] text-center lg:text-left">
+          <motion.div
+            className="w-full lg:w-[420px] text-center lg:text-left"
+            initial={{ x: -80, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <h2 className="mb-4" style={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: "28px" }}>
               What Drives SWL Solutions
             </h2>
@@ -77,23 +88,26 @@ export default function WhatDrives() {
             <p className="text-white/80" style={{ fontFamily: "Inter" }}>
               Reach out to us and experience how our expertise can bring your ideas to life with precision.
             </p>
-          </div>
+          </motion.div>
 
-          {/* FEATURE CARDS — WITH CLICK TOGGLE ANIMATION */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full">
+          {/* FEATURE CARDS */}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full"
+            initial={{ x: 80, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             {features.map((f, i) => {
               const active = activeFeature === i;
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  onClick={() => setActiveFeature(active ? null : i)}
                   whileHover={{
                     scale: 1.03,
                     boxShadow: "0 0 35px rgba(103,100,248,0.5)",
                   }}
+                  onClick={() => setActiveFeature(active ? null : i)}
                   animate={
                     active
                       ? {
@@ -131,42 +145,73 @@ export default function WhatDrives() {
                 </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* SELECTED PROJECTS */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="mb-3" style={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: "28px" }}>
+          <motion.h2
+            className="mb-3"
+            style={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: "28px" }}
+            initial={{ x: -60, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             Selected Projects
-          </h2>
+          </motion.h2>
 
-          <p className="text-white/70 mb-10 text-sm sm:text-base">Case studies with real impact.</p>
+          <motion.p
+            className="text-white/70 mb-10 text-sm sm:text-base"
+            initial={{ x: -40, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Case studies with real impact.
+          </motion.p>
 
-         
-          <div
+          
+          <motion.div
             ref={scrollRef}
             className="overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pt-[18px]"
+            style={{
+              overflowY: "hidden",
+              height: "380px",
+              paddingBottom: "20px",
+            }}
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
-            <div className="flex gap-6 w-max">
+            <motion.div
+              className="flex gap-6 w-max"
+              initial={{ x: 80, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
               {projects.map((p, i) => {
                 const active = activeProject === i;
                 return (
                   <motion.div
                     key={i}
                     whileHover={{
-                      scale: 1.04,
+                      scale: 1.03,
+                      y: -6,
                       boxShadow: "0 0 40px rgba(103,100,248,0.6)",
                     }}
                     onClick={() => setActiveProject(active ? null : i)}
                     animate={
                       active
                         ? {
-                            scale: 1.05,
+                            scale: 1.04,
                             boxShadow: "0 0 40px rgba(103,100,248,0.8)",
                             borderColor: "#6764F8",
                           }
@@ -180,6 +225,10 @@ export default function WhatDrives() {
                       flex flex-col justify-between snap-start
                       transition-all duration-300
                     "
+                    initial={{ y: 50, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                    viewport={{ once: true }}
                   >
                     <div className="overflow-hidden rounded-[12px] border border-[#272727]">
                       <img src={projectImg} className="w-full h-[160px] object-cover" />
@@ -207,22 +256,32 @@ export default function WhatDrives() {
                   </motion.div>
                 );
               })}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* DOTS */}
-          <div className="flex justify-center items-center gap-3 mt-6">
+          <motion.div
+            className="flex justify-center items-center gap-3 mt-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <button onClick={() => handleDotClick(Math.max(0, currentIndex - 1))} className="text-[#6764F8] text-xl">
               &lt;
             </button>
 
             {[...Array(projects.length)].map((_, i) => (
-              <div
+              <motion.div
                 key={i}
                 onClick={() => handleDotClick(i)}
                 className={`w-3 h-3 rounded-full cursor-pointer transition-all
                   ${currentIndex === i ? "bg-[#6764F8] scale-110" : "bg-white/40"}`}
-              ></div>
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+              ></motion.div>
             ))}
 
             <button
@@ -231,10 +290,16 @@ export default function WhatDrives() {
             >
               &gt;
             </button>
-          </div>
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
+
+
+
+
+
+
 

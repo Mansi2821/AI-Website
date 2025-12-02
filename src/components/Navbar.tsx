@@ -21,10 +21,10 @@ export default function Navbar() {
         fixed top-0 left-0 w-full z-50 backdrop-blur-md
         overflow-x-hidden
       "
-      style={{
-        background:
-          "linear-gradient(90deg, #1f2233ff 0%,#141437ff 5%,rgb(0,0,0) 100%)",
-      }}
+      // style={{
+      //   background:
+      //     "linear-gradient(90deg, #1f2233ff 0%,#141437ff 5%,rgb(0,0,0) 100%)",
+      // }}
     >
       {/* ---------------------- TOP BAR (Desktop only) ---------------------- */}
       <motion.div

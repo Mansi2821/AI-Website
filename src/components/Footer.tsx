@@ -4,19 +4,18 @@ import twitterIcon from "../assets/twitter.png";
 import facebookIcon from "../assets/facebook2.png";
 import instagramIcon from "../assets/instagram.png";
 import linkedinIcon from "../assets/linkedin.png";
-
 import mailImage from "../assets/mail.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white pt-20 pb-10 overflow-hidden">
+    <footer className=" text-white pt-20 pb-10 overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-6">
-
+        
         {/* ===================== STAY UPDATED BLOCK ===================== */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 200 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
           viewport={{ once: true }}
           className="
             relative flex flex-col md:flex-row 
@@ -36,7 +35,13 @@ export default function Footer() {
         >
 
           {/* LEFT TEXT */}
-          <div className="relative z-20 w-full md:w-1/2 p-10 flex flex-col items-center md:items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 200 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative z-20 w-full md:w-1/2 p-10 flex flex-col items-center md:items-start"
+          >
             <h3
               style={{
                 fontFamily: "Montserrat",
@@ -62,14 +67,22 @@ export default function Footer() {
             </p>
 
             {/* FORM */}
-            <form 
+            <motion.form
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
               className="
                 flex flex-col sm:flex-row 
                 items-center md:items-center 
                 gap-3 w-full justify-center md:justify-start
               "
             >
-              <input
+              <motion.input
+                initial={{ opacity: 0, y: 80 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                viewport={{ once: true }}
                 type="email"
                 placeholder="Enter your email"
                 style={{
@@ -82,7 +95,11 @@ export default function Footer() {
                 className="px-4 text-white outline-none text-sm w-full sm:w-[274px]"
               />
 
-              <button
+              <motion.button
+                initial={{ opacity: 0, y: 80 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                viewport={{ once: true }}
                 type="submit"
                 style={{
                   height: "44px",
@@ -93,12 +110,18 @@ export default function Footer() {
                 className="text-white font-semibold text-sm w-full sm:w-[169px]"
               >
                 Subscribe
-              </button>
-            </form>
-          </div>
+              </motion.button>
+            </motion.form>
+          </motion.div>
 
           {/* RIGHT IMAGE */}
-          <div className="relative w-full md:w-1/2 h-[200px] md:h-full mt-4 md:mt-0 z-10 flex justify-center md:block">
+          <motion.div
+            initial={{ opacity: 0, y: 200 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="relative w-full md:w-1/2 h-[200px] md:h-full mt-4 md:mt-0 z-10 flex justify-center md:block"
+          >
             <img
               src={mailImage}
               alt="Mail Illustration"
@@ -108,11 +131,15 @@ export default function Footer() {
                 md:rounded-r-[16px] rounded-b-[16px]
               "
             />
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* ===================== FOOTER CONTENT ===================== */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 200 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          viewport={{ once: true }}
           className="
             grid grid-cols-1 
             sm:grid-cols-2 
@@ -123,7 +150,13 @@ export default function Footer() {
         >
 
           {/* LEFT — LOGO + SOCIAL */}
-          <div className="flex flex-col items-center lg:items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 200 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center lg:items-start"
+          >
             <h2
               style={{
                 fontFamily: "Montserrat",
@@ -156,10 +189,16 @@ export default function Footer() {
                 )
               )}
             </div>
-          </div>
+          </motion.div>
 
           {/* CENTER — COMPANY */}
-          <div className="flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 200 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
             <h3 className="text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2 text-sm text-white/70">
               {["Home", "About Us", "Case Studies", "Contact Us"].map(
@@ -170,10 +209,16 @@ export default function Footer() {
                 )
               )}
             </ul>
-          </div>
+          </motion.div>
 
           {/* RIGHT — CORE SERVICES */}
-          <div className="flex flex-col items-center lg:items-start lg:pl-50">
+          <motion.div
+            initial={{ opacity: 0, y: 200 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center lg:items-start lg:pl-50"
+          >
             <h3 className="text-lg font-semibold mb-4">Core Services</h3>
             <ul className="space-y-2 text-sm text-white/70">
               {[
@@ -188,20 +233,30 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* ===================== BOTTOM LINE ===================== */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 200 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
           className="pt-6 text-center text-xs text-white/50 mt-4"
           style={{ borderTop: "1px solid #6764F8" }}
         >
           © 2025 SWL Solutions. All Rights Reserved.
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
 }
+
+
+
+
+
+
 
 
 

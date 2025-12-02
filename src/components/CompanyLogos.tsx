@@ -19,15 +19,15 @@ export default function CompanyLogos() {
   ];
 
   return (
-    <section
-      // className="relative py-12 sm:py-14 md:py-16 overflow-hidden"
-      className="relative pt-24 sm:pt-28 md:pt-32 pb-12 overflow-hidden"
+    <section className="relative pt-24 sm:pt-28 md:pt-32 pb-12 overflow-hidden">
+      {/* marquee animation */}
+      <style>{`
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
 
-      style={{
-        background:
-          "linear-gradient(90deg, #0C0E1E 0%, #0A0A14 40%, #000000 100%)",
-      }}
-    >
       {/* Heading */}
       <div className="max-w-[1240px] mx-auto px-4 text-center mb-10 md:mb-12">
         <motion.p
@@ -46,48 +46,20 @@ export default function CompanyLogos() {
       <div className="max-w-[1240px] mx-auto px-4">
 
         {/* DESKTOP VIEW */}
-        <div className="hidden md:flex justify-center flex-wrap gap-16">
-          {logos.map((logo, idx) => (
-            <motion.img
-              key={idx}
-              src={logo.src}
-              alt={logo.name}
-              animate={{ y: [0, -6, 0], opacity: [0.8, 1, 0.8] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: ["easeInOut"],
-              }}
-              className="
-                h-[32px]         /* UNIFORM HEIGHT */
-                w-auto           /* AUTO WIDTH – NO CROPPING */
-                object-contain   /* FULL LOGO ALWAYS VISIBLE */
-                opacity-90 brightness-0 invert
-                transition-all duration-300
-              "
-              whileHover={{
-                scale: 1.12,
-                opacity: 1,
-                filter:
-                  "brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* MOBILE VIEW — HORIZONTAL SCROLL */}
-        <div
-          className="
-            flex md:hidden gap-10 px-2
-            overflow-x-auto scrollbar-hide
-            snap-x snap-mandatory
-            w-full
-            py-3
-          "
-        >
-          {logos.map((logo, idx) => (
-            <motion.div key={idx} className="flex-shrink-0 snap-center">
+        <div className="hidden md:block overflow-hidden">
+          <div
+            className="flex gap-16 w-max"
+            style={{
+              animation: "marquee 80s linear infinite",
+              height: "60px",            
+              alignItems: "center",      
+              paddingTop: "6px",         
+              paddingBottom: "6px",
+            }}
+          >
+            {[...logos, ...logos].map((logo, idx) => (
               <motion.img
+                key={idx}
                 src={logo.src}
                 alt={logo.name}
                 animate={{ y: [0, -6, 0], opacity: [0.8, 1, 0.8] }}
@@ -97,24 +69,70 @@ export default function CompanyLogos() {
                   ease: ["easeInOut"],
                 }}
                 className="
-                  h-[28px]         /* UNIFORM MOBILE HEIGHT */
-                  w-auto           /* AUTO WIDTH – NO CROPPING */
-                  object-contain   /* FULL LOGO ALWAYS VISIBLE */
+                  h-[32px]
+                  w-auto
+                  object-contain
                   opacity-90 brightness-0 invert
                   transition-all duration-300
-                  
                 "
                 whileHover={{
-                  scale: 1.1,
+                  scale: 1.12,
                   opacity: 1,
                   filter:
-                    "brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))",
+                    'brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))',
                 }}
               />
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* MOBILE VIEW */}
+        <div className="md:hidden overflow-hidden py-2">
+          <div
+            className="flex gap-10 w-max px-2"
+            style={{
+              animation: "marquee 30s linear infinite",
+              height: "48px",          
+              alignItems: "center",
+              paddingTop: "4px",
+              paddingBottom: "4px",
+            }}
+          >
+            {[...logos, ...logos].map((logo, idx) => (
+              <motion.div key={idx} className="flex-shrink-0 snap-center">
+                <motion.img
+                  src={logo.src}
+                  alt={logo.name}
+                  animate={{ y: [0, -6, 0], opacity: [0.8, 1, 0.8] }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: ["easeInOut"],
+                  }}
+                  className="
+                    h-[28px]
+                    w-auto
+                    object-contain
+                    opacity-90 brightness-0 invert
+                    transition-all duration-300
+                  "
+                  whileHover={{
+                    scale: 1.1,
+                    opacity: 1,
+                    filter:
+                      'brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))',
+                  }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
 }
+
+
+
+

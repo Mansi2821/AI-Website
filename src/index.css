@@ -40,3 +40,18 @@ html, body {
   scrollbar-width: none;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: radial-gradient(
+      circle at left center,
+      #6764F82E 0%,
+      transparent 60%
+    ),
+    black;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* keeps it stable */
+}
+
+

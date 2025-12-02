@@ -45,7 +45,7 @@ export default function MeetOurExperts() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="bg-gradient-to-b from-[#0A0A0F] to-[#151527] text-white py-24 overflow-hidden">
+    <section className=" text-white py-24 overflow-hidden">
       <div className="max-w-[1220px] mx-auto px-6">
 
         {/* HEADER */}
@@ -105,7 +105,7 @@ export default function MeetOurExperts() {
                   transition-all duration-500
                 `}
                 style={{
-                  width: isHovered ? "282px" : "185px",
+                  width: isHovered ? "298px" : "185px",
                   height: "462px",
                   border: isHovered ? "1px solid #6764F8" : "1px solid #414141",
                   background: isHovered

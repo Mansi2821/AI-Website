@@ -34,7 +34,7 @@ export default function WhyChooseUs() {
       viewport={{ once: true }}
       className="
         w-full py-20 
-        bg-gradient-to-r from-[#0A0916] via-[#120F25] to-[#1B1735]
+        
         text-white
       "
     >

@@ -103,32 +103,55 @@ export default function Testimonials() {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
+  /* Auto-scroll functionality */
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const autoScroll = setInterval(() => {
+      container.scrollBy({
+        left: 300,
+        behavior: "smooth",
+      });
+
+      // reset to start when reaching the end
+      if (
+        container.scrollLeft + container.clientWidth >=
+        container.scrollWidth - 10
+      ) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
+      }
+    }, 3000); // scroll every 3 seconds
+
+    return () => clearInterval(autoScroll);
+  }, []);
+
   const scrollToCard = (index: number) => {
     const container = scrollRef.current;
     if (!container) return;
 
-    const card = container.querySelector(`[data-index="${index}"]`) as HTMLElement;
+    const card = container.querySelector(
+      `[data-index="${index}"]`
+    ) as HTMLElement;
 
     if (card) {
       container.scrollTo({
-        left: card.offsetLeft - container.offsetWidth / 2 + card.offsetWidth / 2,
+        left:
+          card.offsetLeft -
+          container.offsetWidth / 2 +
+          card.offsetWidth / 2,
         behavior: "smooth",
       });
     }
   };
 
   const scrollLeft = () => scrollToCard(Math.max(activeIndex - 1, 0));
-  const scrollRight = () => scrollToCard(Math.min(activeIndex + 1, EXTENDED.length - 1));
+  const scrollRight = () =>
+    scrollToCard(Math.min(activeIndex + 1, EXTENDED.length - 1));
 
   return (
-    <section
-      className="text-white py-24 overflow-hidden"
-      style={{
-        background: "linear-gradient(90deg, #0A0A0F 0%, #151527 40%, #000000 100%)",
-      }}
-    >
+    <section className="text-white py-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 text-left">
-
         <h2
           style={{
             fontFamily: "Montserrat",
@@ -156,12 +179,14 @@ export default function Testimonials() {
         <div
           ref={scrollRef}
           className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth px-2 sm:px-0"
-          style={{ height: "430px" }}
+          style={{
+            height: "500px",      
+            overflowY: "hidden",  
+          }}
         >
           {EXTENDED.map((t, i) => {
             const isActive = i === activeIndex;
 
-            /* EMPTY CARD (start/end) */
             if ("empty" in t) {
               return (
                 <div
@@ -177,7 +202,6 @@ export default function Testimonials() {
               );
             }
 
-            /* NORMAL TESTIMONIAL CARD */
             return (
               <motion.div
                 key={i}
@@ -192,11 +216,19 @@ export default function Testimonials() {
                   className="rounded-[20px] p-[8px]"
                   style={{
                     width: isActive
-                      ? (window.innerWidth < 640 ? "310px" : "500px")
-                      : (window.innerWidth < 640 ? "270px" : "420px"),
+                      ? window.innerWidth < 640
+                        ? "310px"
+                        : "500px"
+                      : window.innerWidth < 640
+                      ? "270px"
+                      : "420px",
                     height: isActive
-                      ? (window.innerWidth < 640 ? "350px" : "410px")
-                      : (window.innerWidth < 640 ? "300px" : "360px"),
+                      ? window.innerWidth < 640
+                        ? "350px"
+                        : "410px"
+                      : window.innerWidth < 640
+                      ? "300px"
+                      : "360px",
                     transition: "all 0.5s",
                     background:
                       "linear-gradient(to bottom right, rgba(104,102,236,0.95) 5%, rgba(37,36,122,0.9) 70%)",
@@ -210,7 +242,6 @@ export default function Testimonials() {
                     }}
                   >
                     <div className="relative w-full h-full flex flex-col items-center justify-center px-8 py-10">
-
                       <img
                         src={commaIcon}
                         alt="quote mark"
@@ -232,7 +263,6 @@ export default function Testimonials() {
                         {t.text}
                       </p>
 
-                      {/* AVATAR */}
                       <div className="flex flex-col items-center gap-2 mt-2">
                         <div
                           className="rounded-full overflow-hidden border-[2.04px] border-[#6764F8]"
@@ -294,6 +324,10 @@ export default function Testimonials() {
     </section>
   );
 }
+
+
+
+
 
 
 

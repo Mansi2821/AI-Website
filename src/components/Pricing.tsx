@@ -100,7 +100,17 @@ export default function Pricing() {
   ];
 
   return (
-    <section className="relative w-full bg-gradient-to-r from-[#09091A] via-[#0E0D23] to-[#17153A] text-white py-12 overflow-hidden">
+    <section className="relative w-full text-white py-12 overflow-hidden">
+
+      {/* Floating animation keyframes */}
+      <style>{`
+        @keyframes subtleFloat {
+          0%   { transform: translateY(0px); }
+          50%  { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-left">
 
         {/* HEADER */}
@@ -136,7 +146,7 @@ export default function Pricing() {
           commitment to quality and your success.
         </motion.p>
 
-        {/* ===== DESKTOP GRID (UNCHANGED) ===== */}
+        {/* DESKTOP GRID */}
         <div className="hidden md:grid grid-cols-3 gap-10 justify-items-center">
           {plans.map((plan, i) => (
             <PricingCard
@@ -150,7 +160,7 @@ export default function Pricing() {
           ))}
         </div>
 
-        {/* ===== MOBILE HORIZONTAL SCROLL ===== */}
+        {/* MOBILE HORIZONTAL SCROLL */}
         <div className="md:hidden flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
           {plans.map((plan, i) => (
             <PricingCard
@@ -183,7 +193,6 @@ function PricingCard({ plan, brand, isActive, onClick, desktop }: PricingCardPro
         maxWidth: desktop ? "386px" : "360px",
         borderRadius: "16px",
 
-        // Mobile height auto, desktop fixed
         height: desktop ? "800px" : "auto",
 
         background:
@@ -196,6 +205,8 @@ function PricingCard({ plan, brand, isActive, onClick, desktop }: PricingCardPro
         boxShadow: isActive ? "0px 4px 40px #6764F8" : "none",
         transform: isActive ? "scale(1.03)" : "scale(1)",
         transition: "all 0.4s ease",
+
+        animation: "subtleFloat 6s ease-in-out infinite",  // ⭐ Floating animation added
       }}
       whileHover={
         desktop
@@ -277,6 +288,17 @@ function PricingCard({ plan, brand, isActive, onClick, desktop }: PricingCardPro
     </motion.div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
