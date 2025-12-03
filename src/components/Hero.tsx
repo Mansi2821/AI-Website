@@ -6,7 +6,6 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden pt-[160px]">
-
       {/* floating animation */}
       <style>{`
         @keyframes float {
@@ -27,7 +26,7 @@ export default function Hero() {
         <motion.div
           initial={{ x: -60, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="
             flex flex-col justify-center 
             items-start
@@ -45,6 +44,9 @@ export default function Hero() {
               md:text-[44px] md:leading-[52px]
               w-full md:w-[544px]
             "
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
           >
             Shaping the Future <br />
             with{" "}
@@ -64,17 +66,17 @@ export default function Hero() {
               md:text-[20px] md:leading-[28px]
               w-full md:w-[544px]
             "
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.9, ease: "easeOut" }}
           >
             SWL Solutions is your dedicated partner in crafting bespoke software
             solutions that drive growth, efficiency, and innovation. From
             concept to code, we bring your vision to life.
           </motion.p>
 
-          {/* BUTTONS */}
-          <motion.div
+          {/* BUTTONS – LAST */}
+          <div
             className="
               flex gap-4
               flex-row
@@ -82,16 +84,17 @@ export default function Hero() {
               max-md:w-full 
               max-md:items-center
             "
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
           >
+            {/* Our Services */}
             <motion.button
               whileHover={{
                 backgroundColor: "rgba(255,255,255,0.05)",
                 scale: 1.05,
               }}
               whileTap={{ scale: 0.97 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.7, ease: "easeOut" }}
               style={{
                 border: `1px solid ${brand}`,
                 fontFamily: "Inter",
@@ -105,12 +108,16 @@ export default function Hero() {
               Our Services
             </motion.button>
 
+            {/* Contact Us */}
             <motion.button
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 25px rgba(103,100,248,0.6)",
               }}
               whileTap={{ scale: 0.97 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.6, duration: 0.7, ease: "easeOut" }}
               style={{ background: brand, fontFamily: "Inter" }}
               className="
                 text-white 
@@ -120,21 +127,21 @@ export default function Hero() {
             >
               Contact Us
             </motion.button>
-          </motion.div>
+          </div>
         </motion.div>
 
-        {/* RIGHT IMAGE */}
+        {/* RIGHT IMAGE – FROM EXTREME RIGHT */}
         <motion.div
-          initial={{ opacity: 0, x: 120 }}      
+          initial={{ opacity: 0, x: 320 }}   // big x so it comes from far right
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+          transition={{ duration: 1.1, delay: 0.9, ease: "easeOut" }}
           className="
             flex justify-center 
             md:justify-end
             max-md:mt-6
           "
           style={{
-            animation: "float 6s ease-in-out infinite",   
+            animation: "float 6s ease-in-out infinite",
           }}
         >
           <img

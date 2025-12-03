@@ -16,15 +16,13 @@ export default function Navbar() {
   const brand = "#6764F8";
 
   return (
+
     <header
       className="
-        fixed top-0 left-0 w-full z-50 backdrop-blur-md
+        fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-black/50 border-b border-white/10
         overflow-x-hidden
       "
-      // style={{
-      //   background:
-      //     "linear-gradient(90deg, #1f2233ff 0%,#141437ff 5%,rgb(0,0,0) 100%)",
-      // }}
+      
     >
       {/* ---------------------- TOP BAR (Desktop only) ---------------------- */}
       <motion.div

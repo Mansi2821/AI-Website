@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import img1 from "../assets/blog1.png";
 import img2 from "../assets/blog2.png";
@@ -33,6 +33,19 @@ interface InsightCardProps {
 export default function LatestInsights() {
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
+  /* Initialize AOS */
+  useEffect(() => {
+    import("aos/dist/aos.css");
+    import("aos").then((AOS) =>
+      AOS.init({
+        once: true,
+        offset: 20,
+        easing: "ease-out",
+        duration: 900,
+      })
+    );
+  }, []);
+
   const insights: InsightItem[] = [
     {
       title: "AWS Cost Optimization: 10 Strategies That Saved Our Clients $50K+",
@@ -47,7 +60,8 @@ export default function LatestInsights() {
       title: "Empowering\nbusiness through\ntechnology",
       img: img2,
       isTextOnly: true,
-      description: "How innovative IT solutions drive efficiency, growth, and digital transformation.",
+      description:
+        "How innovative IT solutions drive efficiency, growth, and digital transformation.",
     },
 
     {
@@ -93,9 +107,9 @@ export default function LatestInsights() {
 
         {/* HEADER */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, x: -60, scale: 1.05 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.75, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-left mb-12"
         >
@@ -111,35 +125,55 @@ export default function LatestInsights() {
             Latest Insights
           </h2>
 
-          <p className="text-white/70 text-sm sm:text-base max-w-2xl">
-            Thought leadership, technical tutorials, and industry insights from our team.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, x: -50, scale: 1.03 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.65, delay: 0.2, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="text-white/70 text-sm sm:text-base max-w-2xl"
+          >
+            Thought leadership, technical tutorials, and industry insights from
+            our team.
+          </motion.p>
         </motion.div>
 
         {/* DESKTOP GRID */}
         <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-12">
           {insights.map((item, i) => (
-            <InsightCard
+            <div
               key={i}
-              item={item}
-              index={i}
-              activeCard={activeCard}
-              setActiveCard={setActiveCard}
-            />
+              data-aos="fade-down"
+              data-aos-duration="1200"
+              data-aos-delay={i * 200} // stagger cards
+            >
+              <InsightCard
+                item={item}
+                index={i}
+                activeCard={activeCard}
+                setActiveCard={setActiveCard}
+              />
+            </div>
           ))}
         </div>
 
-        {/* MOBILE — horizontal scroll */}
+        {/* MOBILE SCROLLER */}
         <div className="sm:hidden flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-2 pt-1">
           {insights.map((item, i) => (
-            <InsightCard
+            <div
               key={i}
-              item={item}
-              index={i}
-              activeCard={activeCard}
-              setActiveCard={setActiveCard}
-              mobile
-            />
+              data-aos="fade-down"
+              data-aos-duration="1200"
+              data-aos-delay={i * 200}
+              className="snap-center"
+            >
+              <InsightCard
+                item={item}
+                index={i}
+                activeCard={activeCard}
+                setActiveCard={setActiveCard}
+                mobile
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -161,18 +195,6 @@ function InsightCard({
   return (
     <motion.div
       onClick={() => (mobile ? setActiveCard(isActive ? null : index) : null)}
-
-      
-      initial={{ opacity: 0, y: 80, scale: 0.92 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        duration: 0.65,
-        ease: "easeOut",
-        delay: index * 0.05, 
-      }}
-      viewport={{ once: true }}
-
-      /* Existing hover effect */
       whileHover={
         !mobile
           ? { scale: 1.03, boxShadow: "0 0 45px rgba(103,100,248,0.55)" }
@@ -185,7 +207,7 @@ function InsightCard({
             : { scale: 1 }
           : {}
       }
-      className="group overflow-hidden transition-all duration-500 cursor-pointer relative snap-center"
+      className="group overflow-hidden transition-all duration-500 cursor-pointer relative"
       style={{
         width: mobile ? "85vw" : "380px",
         maxWidth: "380px",
@@ -238,7 +260,7 @@ function InsightCard({
             )}
           </div>
 
-          {/* TITLE + META */}
+          {/* TEXT */}
           <div className="px-4 py-3">
             <h3
               className="font-semibold text-base leading-snug mb-1"

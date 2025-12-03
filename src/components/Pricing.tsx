@@ -21,6 +21,7 @@ interface PricingCardProps {
   isActive: boolean;
   onClick: () => void;
   desktop?: boolean;
+  animationDelay?: number;
 }
 
 /* ---------------- MAIN COMPONENT ---------------- */
@@ -101,7 +102,6 @@ export default function Pricing() {
 
   return (
     <section className="relative w-full text-white py-12 overflow-hidden">
-
       {/* Floating animation keyframes */}
       <style>{`
         @keyframes subtleFloat {
@@ -115,9 +115,10 @@ export default function Pricing() {
 
         {/* HEADER */}
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, x: 200 }}          // slide from extreme right
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
             fontFamily: "Montserrat",
             fontWeight: 600,
@@ -130,9 +131,10 @@ export default function Pricing() {
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, x: 200 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.25 }}
           style={{
             fontFamily: "Inter",
             fontWeight: 400,
@@ -156,6 +158,7 @@ export default function Pricing() {
               isActive={activeCard === i}
               onClick={() => setActiveCard(activeCard === i ? null : i)}
               desktop
+              animationDelay={0.4 + i * 0.25}
             />
           ))}
         </div>
@@ -169,6 +172,7 @@ export default function Pricing() {
               brand={brand}
               isActive={activeCard === i}
               onClick={() => setActiveCard(activeCard === i ? null : i)}
+              animationDelay={0.4 + i * 0.25}
             />
           ))}
         </div>
@@ -179,34 +183,36 @@ export default function Pricing() {
 
 /* ---------------- CARD COMPONENT ---------------- */
 
-function PricingCard({ plan, brand, isActive, onClick, desktop }: PricingCardProps) {
+function PricingCard({
+  plan,
+  brand,
+  isActive,
+  onClick,
+  desktop,
+  animationDelay = 0,
+}: PricingCardProps) {
   return (
     <motion.div
       onClick={onClick}
       className="relative flex flex-col justify-between p-8 snap-center flex-shrink-0"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: -200 }}   // slide from extreme left
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.8, ease: "easeOut", delay: animationDelay }}
       style={{
         width: desktop ? "386px" : "90vw",
         maxWidth: desktop ? "386px" : "360px",
         borderRadius: "16px",
-
         height: desktop ? "800px" : "auto",
-
         background:
           "linear-gradient(161.17deg, rgba(103,100,248,0.4) 1.78%, #000000 100%)",
-
         border: isActive
           ? "1.5px solid #6764F8"
           : "1px solid rgba(103,100,248,0.25)",
-
         boxShadow: isActive ? "0px 4px 40px #6764F8" : "none",
         transform: isActive ? "scale(1.03)" : "scale(1)",
         transition: "all 0.4s ease",
-
-        animation: "subtleFloat 6s ease-in-out infinite",  // ⭐ Floating animation added
+        animation: `subtleFloat 6s ease-in-out infinite ${animationDelay + 1}s`, // float starts AFTER entrance
       }}
       whileHover={
         desktop
@@ -277,7 +283,7 @@ function PricingCard({ plan, brand, isActive, onClick, desktop }: PricingCardPro
             width: desktop ? "320px" : "260px",
             height: "44px",
             borderRadius: "8px",
-            background: "#6764F8",
+            background: brand,
           }}
         >
           Get Started
@@ -288,17 +294,3 @@ function PricingCard({ plan, brand, isActive, onClick, desktop }: PricingCardPro
     </motion.div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

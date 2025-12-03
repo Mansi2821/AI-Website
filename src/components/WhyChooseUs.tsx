@@ -30,11 +30,10 @@ export default function WhyChooseUs() {
     <motion.section
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true }}
       className="
         w-full py-20 
-        
         text-white
       "
     >
@@ -49,9 +48,9 @@ export default function WhyChooseUs() {
       >
         {/* LEFT COLUMN */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
+          initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
           viewport={{ once: true }}
           className="
             w-full 
@@ -59,7 +58,12 @@ export default function WhyChooseUs() {
             flex flex-col 
           "
         >
-          <h2
+          {/* Heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+            viewport={{ once: true }}
             className="
               mb-4 
               text-[24px] sm:text-[26px] md:text-[28px]
@@ -68,9 +72,14 @@ export default function WhyChooseUs() {
             style={{ fontFamily: "Montserrat" }}
           >
             Why Choose Us
-          </h2>
+          </motion.h2>
 
-          <p
+          {/* Paragraph */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.45 }}
+            viewport={{ once: true }}
             className="
               mb-8 
               text-[14px] sm:text-[15px] md:text-[16px]
@@ -81,16 +90,16 @@ export default function WhyChooseUs() {
             At SWL Solutions, we combine innovation, precision, and deep
             technical expertise to deliver digital solutions that transform
             businesses. We don’t just build software — we build success stories.
-          </p>
+          </motion.p>
 
           {/* BULLET LIST */}
           <ul className="space-y-5 sm:space-y-6">
             {points.map((p, i) => (
               <motion.li
                 key={i}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ duration: 0.55, delay: 0.65 + i * 0.2, ease: "easeOut" }}
                 viewport={{ once: true }}
                 className="flex items-start gap-3"
               >
@@ -109,11 +118,11 @@ export default function WhyChooseUs() {
           </ul>
         </motion.div>
 
-        {/* RIGHT COLUMN */}
+        {/* RIGHT COLUMN IMAGE — comes LATE and from extreme left */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, x: -200 }}   // far left entrance
+          whileInView={{ opacity: 1, x: 0 }}  
+          transition={{ duration: 1.2, delay: 1.6, ease: "easeOut" }} // image LAST
           viewport={{ once: true }}
           className="
             flex-1 
@@ -122,7 +131,7 @@ export default function WhyChooseUs() {
           "
         >
           <motion.img
-            initial={{ scale: 0.94 }}
+            initial={{ scale: 0.92 }}
             whileInView={{ scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
@@ -139,6 +148,5 @@ export default function WhyChooseUs() {
     </motion.section>
   );
 }
-
 
 

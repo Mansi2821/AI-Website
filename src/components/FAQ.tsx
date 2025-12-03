@@ -35,12 +35,12 @@ export default function FAQ() {
   return (
     <section className="text-white py-24 overflow-hidden">
       <div className="max-w-[1220px] mx-auto px-6">
-        
+
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-left mb-12"
         >
@@ -56,10 +56,15 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
 
-          <p className="text-white/70 text-sm sm:text-base max-w-2xl">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="text-white/70 text-sm sm:text-base max-w-2xl"
+          >
             Got questions? We've got answers. Here are the most common questions
             we receive from our clients.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* FAQ LIST */}
@@ -67,7 +72,6 @@ export default function FAQ() {
           {faqs.map((faq, i) => {
             const isActive = activeIndex === i;
 
-           
             const slideFromLeft = i % 2 === 0;
             const xStart = slideFromLeft ? -200 : 200;
 
@@ -76,9 +80,13 @@ export default function FAQ() {
                 key={i}
                 initial={{ opacity: 0, x: xStart }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.55, delay: i * 0.08, ease: "easeOut" }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.35 + i * 0.18, // noticeable stagger
+                  ease: "easeOut",
+                }}
                 viewport={{ once: true }}
-                className={`overflow-hidden transition-all duration-500 rounded-[10px]`}
+                className="overflow-hidden transition-all duration-500 rounded-[10px]"
                 style={{
                   width: "100%",
                   maxWidth: "1242px",
@@ -94,18 +102,28 @@ export default function FAQ() {
                   className="w-full flex justify-between items-center px-6 py-5 text-left focus:outline-none"
                   style={{ height: "74px" }}
                 >
-                  <span
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.4 + i * 0.18,
+                    }}
                     className={`font-medium text-sm sm:text-base ${
                       isActive ? "text-white" : "text-white/80"
                     }`}
                   >
                     {faq.question}
-                  </span>
+                  </motion.span>
 
                   <motion.span
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1, rotate: isActive ? 180 : 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: 0.45 + i * 0.18,
+                    }}
                     className="text-[#A287FF] text-xl flex-shrink-0"
-                    animate={{ rotate: isActive ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
                   >
                     {isActive ? <FiMinus /> : <FiPlus />}
                   </motion.span>
@@ -120,15 +138,16 @@ export default function FAQ() {
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{
-                        duration: 0.5,
+                        duration: 0.55,
+                        delay: 0.05,
                         ease: [0.25, 0.1, 0.25, 1],
                       }}
                       className="px-6 pb-5"
                     >
                       <motion.p
-                        initial={{ y: 10 }}
-                        animate={{ y: 0 }}
-                        transition={{ duration: 0.4 }}
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.45, delay: 0.1 }}
                         className="text-sm text-white/75 leading-relaxed"
                       >
                         {faq.answer}
@@ -144,9 +163,6 @@ export default function FAQ() {
     </section>
   );
 }
-
-
-
 
 
 

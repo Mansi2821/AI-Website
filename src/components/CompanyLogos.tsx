@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import "aos/dist/aos.css";
 
 // Local logo imports
 import logo1 from "../assets/utosia.png";
@@ -29,12 +30,17 @@ export default function CompanyLogos() {
       `}</style>
 
       {/* Heading */}
-      <div className="max-w-[1240px] mx-auto px-4 text-center mb-10 md:mb-12">
+      <div
+        className="max-w-[1240px] mx-auto px-4 text-center mb-10 md:mb-12"
+        data-aos="flip-up"
+        data-aos-delay="300"
+        data-aos-duration="800"
+      >
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
           className="text-white font-semibold text-[20px] md:text-[22px] leading-[28px]"
           style={{ fontFamily: "Inter" }}
         >
@@ -44,16 +50,16 @@ export default function CompanyLogos() {
 
       {/* Logo list */}
       <div className="max-w-[1240px] mx-auto px-4">
-
+        
         {/* DESKTOP VIEW */}
         <div className="hidden md:block overflow-hidden">
           <div
             className="flex gap-16 w-max"
             style={{
               animation: "marquee 80s linear infinite",
-              height: "60px",            
-              alignItems: "center",      
-              paddingTop: "6px",         
+              height: "60px",
+              alignItems: "center",
+              paddingTop: "6px",
               paddingBottom: "6px",
             }}
           >
@@ -66,7 +72,7 @@ export default function CompanyLogos() {
                 transition={{
                   duration: 3,
                   repeat: Infinity,
-                  ease: ["easeInOut"],
+                  ease: "easeInOut",
                 }}
                 className="
                   h-[32px]
@@ -79,7 +85,7 @@ export default function CompanyLogos() {
                   scale: 1.12,
                   opacity: 1,
                   filter:
-                    'brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))',
+                    "brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))",
                 }}
               />
             ))}
@@ -92,14 +98,17 @@ export default function CompanyLogos() {
             className="flex gap-10 w-max px-2"
             style={{
               animation: "marquee 30s linear infinite",
-              height: "48px",          
+              height: "48px",
               alignItems: "center",
               paddingTop: "4px",
               paddingBottom: "4px",
             }}
           >
             {[...logos, ...logos].map((logo, idx) => (
-              <motion.div key={idx} className="flex-shrink-0 snap-center">
+              <motion.div
+                key={idx}
+                className="flex-shrink-0 snap-center"
+              >
                 <motion.img
                   src={logo.src}
                   alt={logo.name}
@@ -107,7 +116,7 @@ export default function CompanyLogos() {
                   transition={{
                     duration: 3,
                     repeat: Infinity,
-                    ease: ["easeInOut"],
+                    ease: "easeInOut",
                   }}
                   className="
                     h-[28px]
@@ -120,18 +129,24 @@ export default function CompanyLogos() {
                     scale: 1.1,
                     opacity: 1,
                     filter:
-                      'brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))',
+                      "brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.7))",
                   }}
                 />
               </motion.div>
             ))}
           </div>
         </div>
-
+        
       </div>
     </section>
   );
 }
+
+
+
+
+
+
 
 
 

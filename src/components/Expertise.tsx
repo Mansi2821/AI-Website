@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import "aos/dist/aos.css";
 
 import { FaRobot, FaBug, FaCode, FaCogs, FaCloud } from "react-icons/fa";
 import { GiArtificialIntelligence } from "react-icons/gi";
@@ -8,14 +9,13 @@ import expertiseImage from "../assets/expertise.png";
 
 export default function Expertise() {
   const brand = "#6764F8";
-
   const [active, setActive] = useState<string | null>(null);
 
   return (
     <motion.section
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
       viewport={{ once: true }}
       className="relative w-full py-24 text-white overflow-hidden"
     >
@@ -33,8 +33,10 @@ export default function Expertise() {
         className="text-center mb-16 px-4"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
+        data-aos="fade-up-left"
+        data-aos-delay="300"
       >
         <h2
           style={{
@@ -57,28 +59,31 @@ export default function Expertise() {
             color: "#D3D3D3",
           }}
           className="max-w-xl mx-auto"
+          data-aos="fade-up-left"
+          data-aos-delay="550"   
         >
           We offer a comprehensive suite of services to build your next big idea.
         </p>
       </motion.div>
 
-      {/* DESKTOP VIEW */}
+      {/* DESKTOP IMAGE */}
       <div className="hidden md:flex relative max-w-[1200px] mx-auto justify-center items-center">
         <motion.img
           src={expertiseImage}
           alt="Expertise Graphic"
-          initial={{ opacity: 0, x: 80 }}
+          initial={{ opacity: 0, x: 120 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 1.2, delay: 0.9, ease: "easeOut" }}
           viewport={{ once: true }}
           style={{
             width: "1117px",
             height: "513px",
             opacity: 1,
-            transform: "rotate(0deg)",
-            animation: "subtleFloat 6s ease-in-out infinite", // ✨ floating motion
+            animation: "subtleFloat 6s ease-in-out infinite",
           }}
           className="object-contain drop-shadow-[0_0_40px_rgba(103,100,248,0.3)]"
+          data-aos="fade-down-right"
+          data-aos-delay="900"   
         />
       </div>
 
@@ -99,12 +104,14 @@ export default function Expertise() {
               key={item.id}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              transition={{ duration: 0.55, delay: idx * 0.18, ease: "easeOut" }} 
               viewport={{ once: true }}
               className="w-full flex items-center justify-between p-4 rounded-xl bg-[#1B1B2A]/80 border border-[#3B3473]"
               onClick={() => setActive(item.id)}
+              data-aos="fade-right"
+              data-aos-delay={350 + idx * 180}   
             >
-              {/* ICON BOX */}
+              {/* ICON */}
               <motion.div
                 animate={{
                   scale: isActive ? 1.15 : 1,
@@ -147,7 +154,6 @@ export default function Expertise() {
     </motion.section>
   );
 }
-
 
 
 
