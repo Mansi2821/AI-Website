@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEnvelope, FaPhoneAlt, FaBars, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import instagramIcon from "../assets/instagram.png";
 import linkedinIcon from "../assets/linkedin.png";
@@ -8,21 +9,40 @@ import facebookIcon from "../assets/facebook.png";
 import twitterIcon from "../assets/twitter.png";
 
 export default function Navbar() {
-  // FIXED TYPE ERROR ✔
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const navigate = useNavigate();
+
   const menu = ["Home", "About Us", "Services", "Case Studies", "Contact Us"];
   const brand = "#6764F8";
 
-  return (
+  // ✅ Detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNavigation = (item: string, idx?: number) => {
+    if (idx !== undefined) setActiveIndex(idx);
+    setIsOpen(false);
+
+    if (item === "Home") navigate("/");
+    if (item === "About Us") navigate("/about");
+  };
+
+  return (
     <header
-      className="
-        fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-black/50 border-b border-white/10
-        overflow-x-hidden
-      "
-      
+      className={`
+        fixed top-0 left-0 w-full z-50
+        transition-all duration-300
+        ${scrolled ? "backdrop-blur-2xl bg-black/30" : "bg-transparent"}
+      `}
     >
       {/* ---------------------- TOP BAR (Desktop only) ---------------------- */}
       <motion.div
@@ -33,7 +53,6 @@ export default function Navbar() {
       >
         <div className="max-w-[1240px] mx-auto px-4 py-2">
           <div className="flex items-center justify-between text-xs text-[#cfcfe0]">
-            
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
                 <FaEnvelope style={{ color: brand }} />
@@ -61,8 +80,6 @@ export default function Navbar() {
               )}
             </div>
           </div>
-
-          <div className="mt-2 w-full h-[1px]" style={{ background: brand }} />
         </div>
       </motion.div>
 
@@ -82,8 +99,9 @@ export default function Navbar() {
         >
           {/* LOGO */}
           <motion.div
-            className="text-white flex-shrink"
+            className="text-white cursor-pointer"
             style={{ fontFamily: "Montserrat", fontWeight: 700 }}
+            onClick={() => navigate("/")}
           >
             <span className="text-[22px] sm:text-[26px] md:text-[32px]">
               Logo
@@ -91,44 +109,34 @@ export default function Navbar() {
           </motion.div>
 
           {/* DESKTOP MENU */}
-          <motion.ul
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="hidden md:flex items-center gap-[35px]"
-          >
+          <ul className="hidden md:flex items-center gap-[35px]">
             {menu.map((item, i) => (
-              <motion.li
+              <li
                 key={i}
-                whileHover={{ scale: 1.05 }}
-                className="cursor-pointer text-white/85 font-medium"
+                className="cursor-pointer text-white/85 font-medium hover:text-[#6764F8] transition-all"
+                onClick={() => handleNavigation(item)}
               >
-                <span className="hover:text-[#6764F8] transition-all">
-                  {item}
-                </span>
-              </motion.li>
+                {item}
+              </li>
             ))}
-          </motion.ul>
+          </ul>
 
-          {/* CTA DESKTOP */}
+          {/* CTA */}
           <motion.button
             whileHover={{
               scale: 1.05,
               boxShadow: "0 0 25px rgba(103,100,248,0.6)",
             }}
-            className="
-              hidden md:flex rounded-lg font-semibold text-sm text-white
-              justify-center items-center
-            "
+            className="hidden md:flex rounded-lg font-semibold text-sm text-white justify-center items-center"
             style={{ background: brand, width: "169px", height: "44px" }}
           >
             Let’s Talk
           </motion.button>
 
-          {/* MOBILE HAMBURGER BUTTON */}
+          {/* MOBILE HAMBURGER */}
           <motion.button
             whileTap={{ scale: 0.9 }}
-            className="md:hidden p-2 ml-auto mr-0 text-white flex-shrink-0"
+            className="md:hidden p-2 text-white"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
@@ -144,44 +152,22 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="w-full md:hidden overflow-hidden px-3 pb-4"
+            className="md:hidden px-3 pb-4"
           >
-            <div
-              className="
-                bg-black/95 border border-white/10 rounded-lg 
-                p-5 flex flex-col gap-4 text-center
-              "
-            >
-              {/* MOBILE LIST ITEMS — BLUE ON CLICK */}
+            <div className="bg-black/95 rounded-lg p-5 flex flex-col gap-4 text-center">
               {menu.map((item, idx) => (
-                <motion.div
+                <div
                   key={idx}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => setActiveIndex(idx)}
-                  className={`
-                    py-2 font-medium text-base cursor-pointer transition-all
-                    ${activeIndex === idx ? "text-[#6764F8]" : "text-white/90"}
-                  `}
+                  onClick={() => handleNavigation(item, idx)}
+                  className={`py-2 cursor-pointer ${
+                    activeIndex === idx
+                      ? "text-[#6764F8]"
+                      : "text-white/90"
+                  }`}
                 >
                   {item}
-                </motion.div>
+                </div>
               ))}
-
-              {/* MOBILE CTA — CENTERED */}
-              <motion.button
-                whileTap={{ scale: 0.97 }}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 15px rgba(103,100,248,0.4)",
-                }}
-                className="
-                  w-full py-3 rounded-lg font-semibold text-white text-base
-                  flex justify-center items-center
-                "
-                style={{ background: brand }}
-              >
-                Let’s Talk
-              </motion.button>
             </div>
           </motion.div>
         )}
@@ -189,5 +175,13 @@ export default function Navbar() {
     </header>
   );
 }
+
+
+
+
+
+
+
+
 
 
