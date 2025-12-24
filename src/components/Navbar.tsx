@@ -18,7 +18,7 @@ export default function Navbar() {
   const menu = ["Home", "About Us", "Services", "Case Studies", "Contact Us"];
   const brand = "#6764F8";
 
-  // ✅ Detect scroll
+  // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
@@ -80,6 +80,17 @@ export default function Navbar() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* 🔹 SOLID ALIGNED DIVIDER */}
+        <div className="max-w-[1240px] mx-auto px-4">
+          <div
+            style={{
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#6764F8",
+            }}
+          />
         </div>
       </motion.div>
 
@@ -175,8 +186,6 @@ export default function Navbar() {
     </header>
   );
 }
-
-
 
 
 

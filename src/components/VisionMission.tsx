@@ -87,7 +87,7 @@ export default function VisionMission() {
           }}
           className="
             mx-auto
-            w-full max-w-[1240px]
+            w-full max-w-[1200px]
             h-[456px]
             rounded-[16px]
             p-[10px]

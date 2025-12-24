@@ -64,8 +64,8 @@ const cardVariant: Variants = {
 export default function KeyFeatures() {
   return (
     <section className="w-full bg-black pt-14 pb-20">
-      <div className="max-w-[1441px] mx-auto px-4 sm:px-6 md:px-12">
-
+      {/* 🔥 SAME CONTAINER AS NAVBAR */}
+      <div className="max-w-[1240px] mx-auto px-4">
         {/* ================= HEADING ================= */}
         <motion.h2
           variants={textVariant}
@@ -94,15 +94,7 @@ export default function KeyFeatures() {
         </motion.p>
 
         {/* ================= FEATURE GRID ================= */}
-        <div
-          className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-3
-            gap-x-6 gap-y-6
-          "
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((item, idx) => {
             const rowDelay = Math.floor(idx / 3) * 0.35;
             const itemDelay = rowDelay + (idx % 3) * 0.12;
@@ -121,8 +113,6 @@ export default function KeyFeatures() {
                 }}
                 className="
                   w-full
-                  max-w-[400px]
-                  mx-auto
                   min-h-[72px]
                   flex items-center gap-4
                   px-4 py-3
@@ -140,8 +130,7 @@ export default function KeyFeatures() {
                   className="
                     w-[40px] h-[40px]
                     flex items-center justify-center
-                    rounded-md border
-                    shrink-0
+                    rounded-md border shrink-0
                   "
                   style={{ borderColor: "#4D4AD4" }}
                 >
@@ -163,6 +152,7 @@ export default function KeyFeatures() {
     </section>
   );
 }
+
 
 
 

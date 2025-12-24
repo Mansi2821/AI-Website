@@ -37,13 +37,13 @@ const textVariants: Variants = {
 
 export default function WhoWeAre() {
   return (
-    // ⬇ reduced bottom padding
     <section className="w-full pt-24 md:pt-32 pb-16 bg-black">
+      {/* 🔥 SAME CONTAINER AS NAVBAR */}
       <div
         className="
-          max-w-[1441px]
+          max-w-[1240px]
           mx-auto
-          px-6 md:px-12
+          px-4
           flex flex-col lg:flex-row
           items-center
           gap-16 lg:gap-24
@@ -51,7 +51,6 @@ export default function WhoWeAre() {
       >
         {/* ================= IMAGES ================= */}
         <div className="flex flex-col sm:flex-row gap-8 items-center">
-          
           {/* LEFT COLUMN */}
           <div className="flex flex-col gap-8">
             {[img1, img2].map((img, i) => (
@@ -62,13 +61,10 @@ export default function WhoWeAre() {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 custom={i * 0.45}
-
-                /* 🔥 IMAGE HOVER EFFECT */
                 whileHover={{
                   scale: 1.04,
                   boxShadow: "0 0 30px rgba(103,100,248,0.45)",
                 }}
-
                 className="
                   w-[293px] h-[307px]
                   rounded-[16px] p-[10px]
@@ -88,24 +84,18 @@ export default function WhoWeAre() {
             ))}
           </div>
 
-          {/* RIGHT CENTER IMAGE */}
+          {/* RIGHT IMAGE */}
           <motion.div
             variants={imageVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             custom={0.95}
-
-            /* 🔥 IMAGE HOVER EFFECT */
             whileHover={{
               scale: 1.04,
               boxShadow: "0 0 30px rgba(103,100,248,0.45)",
             }}
-
-            className="
-              flex items-center
-              transition-all duration-300
-            "
+            className="transition-all duration-300"
           >
             <div
               className="w-[293px] h-[307px] rounded-[16px] p-[10px]"
@@ -123,9 +113,8 @@ export default function WhoWeAre() {
           </motion.div>
         </div>
 
-        {/* ================= TEXT CONTENT ================= */}
-        <div className="w-full max-w-[480px] flex flex-col gap-3 text-white lg:ml-[16px]">
-          
+        {/* ================= TEXT ================= */}
+        <div className="w-full max-w-[480px] flex flex-col gap-3 text-white">
           <motion.div
             variants={textVariants}
             initial="hidden"
@@ -169,7 +158,6 @@ export default function WhoWeAre() {
             elevate their digital presence.
           </motion.p>
 
-          {/* 🔥 BUTTON HOVER EFFECT */}
           <motion.button
             variants={textVariants}
             initial="hidden"
