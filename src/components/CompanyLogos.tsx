@@ -20,7 +20,7 @@ export default function CompanyLogos() {
   ];
 
   return (
-    <section className="relative pt-24 sm:pt-28 md:pt-32 pb-12 overflow-hidden">
+    <section className="relative pt-10 sm:pt-10 md:pt-22 pb-12 overflow-hidden">
       {/* marquee animation */}
       <style>{`
         @keyframes marquee {

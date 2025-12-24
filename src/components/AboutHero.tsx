@@ -42,7 +42,7 @@ export default function AboutHero() {
           initial={{ opacity: 0, y: 30, rotateZ: -4 }}
           animate={{ opacity: 1, y: 0, rotateZ: 0 }}
           transition={{
-            delay: 0.6, // ⬅ slight delay after heading
+            delay: 0.6, 
             duration: 0.9,
             ease: "easeOut",
           }}

@@ -7,11 +7,11 @@ import AboutHero from "../components/AboutHero";
 import WhoWeAre from "../components/WhoWeAre";
 import KeyFeatures from "../components/KeyFeatures";
 import VisionMission from "../components/VisionMission";
-
 import CompanyLogos from "../components/CompanyLogos";
-import Footer from "../components/Footer";
+import AboutFooter from "../components/AboutFooter";
 
 import GlowBG from "../assets/ellipse-glow.png";
+
 
 export default function AboutUs() {
 
@@ -77,9 +77,6 @@ export default function AboutUs() {
 
       {/* ✅ Navbar */}
       <Navbar />
-
-
-
       <AboutHero />
       <WhoWeAre />
       <KeyFeatures />
@@ -90,7 +87,7 @@ export default function AboutUs() {
       <CompanyLogos />
 
       {/* ✅ Footer */}
-      <Footer />
+      <AboutFooter />
     </div>
   );
 }

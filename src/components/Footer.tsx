@@ -5,8 +5,10 @@ import facebookIcon from "../assets/facebook2.png";
 import instagramIcon from "../assets/instagram.png";
 import linkedinIcon from "../assets/linkedin.png";
 import mailImage from "../assets/mail.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
   return (
     <footer className=" text-white pt-20 pb-10 overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-6">
@@ -192,6 +194,7 @@ export default function Footer() {
           </motion.div>
 
           {/* CENTER — COMPANY */}
+
           <motion.div
             initial={{ opacity: 0, y: 200 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -201,13 +204,27 @@ export default function Footer() {
           >
             <h3 className="text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2 text-sm text-white/70">
-              {["Home", "About Us", "Case Studies", "Contact Us"].map(
-                (link, idx) => (
-                  <li key={idx} className="hover:text-white transition cursor-pointer">
-                    {link}
-                  </li>
-                )
-              )}
+              <li
+                onClick={() => navigate("/")}
+                className="hover:text-white transition cursor-pointer"
+              >
+                Home
+              </li>
+
+              <li
+                onClick={() => navigate("/about")}
+                className="hover:text-white transition cursor-pointer"
+              >
+                About Us
+              </li>
+
+              <li className="hover:text-white transition cursor-pointer">
+                Case Studies
+              </li>
+
+              <li className="hover:text-white transition cursor-pointer">
+                Contact Us
+              </li>
             </ul>
           </motion.div>
 
@@ -237,16 +254,32 @@ export default function Footer() {
         </motion.div>
 
         {/* ===================== BOTTOM LINE ===================== */}
+        
+
         <motion.div
-          initial={{ opacity: 0, y: 200 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="pt-6 text-center text-xs text-white/50 mt-4"
-          style={{ borderTop: "1px solid #6764F8" }}
-        >
-          © 2025 SWL Solutions. All Rights Reserved.
-        </motion.div>
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.6 }}
+  viewport={{ once: true }}
+  className="
+    mt-10 pt-6
+    text-center
+    text-sm
+    text-white
+    relative
+  "
+>
+  {/* STRONG DIVIDER */}
+  <div
+    className="absolute left-0 top-0 w-full h-px"
+    style={{
+      background:
+        "linear-gradient(90deg,  #343442ff,  #343442ff,  #343442ff)",
+    }}
+  />
+
+  © 2025 SWL Solutions. All Rights Reserved.
+</motion.div>
       </div>
     </footer>
   );
