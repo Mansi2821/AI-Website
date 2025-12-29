@@ -34,6 +34,9 @@ export default function Navbar() {
 
     if (item === "Home") navigate("/");
     if (item === "About Us") navigate("/about");
+    if (item === "Services") navigate("/services");
+    if (item === "Case Studies") navigate("/case-studies");
+    if (item === "Contact Us") navigate("/contact");
   };
 
   return (
