@@ -99,7 +99,8 @@ export default function AboutFooter() {
                 Case Studies
               </li>
 
-              <li className="hover:text-white transition cursor-pointer">
+              <li onClick={() => navigate("/contact")}
+              className="hover:text-white transition cursor-pointer">
                 Contact Us
               </li>
             </ul>
